@@ -10,63 +10,45 @@ export interface Car {
 
 export const cars: Car[] = [
   {
-    model: "Compact City Hatch",
+    model: "Suzuki Jimny",
     image:
-      "https://images.unsplash.com/photo-1471479917193-f00955256257?auto=format&fit=crop&w=900&q=75",
-    category: "Economy",
-    seats: 4,
-    transmission: "Manual",
-    luggage: 2,
-    pricePerDay: 39,
-  },
-  {
-    model: "Executive Sedan",
-    image:
-      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=900&q=75",
+      "https://images.unsplash.com/photo-1693485314009-5a5a0a445186?auto=format&fit=crop&w=900&q=75",
     category: "Comfort",
-    seats: 5,
+    seats: 4,
     transmission: "Automatic",
+    luggage: 2,
+    pricePerDay: 70,
+  },
+  {
+    model: "Toyota Land Cruiser TX Pardo",
+    image:
+      "https://images.unsplash.com/photo-1650159374693-7b46b80c2f09?auto=format&fit=crop&w=900&q=75",
+    category: "Economy",
+    seats: 5,
+    transmission: "Manual",
     luggage: 3,
-    pricePerDay: 74,
+    pricePerDay: 80,
   },
   {
-    model: "Adventure 4x4 SUV",
+    model: "Toyota Hiace",
     image:
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=900&q=75",
-    category: "Off-road",
-    seats: 5,
-    transmission: "Automatic",
-    luggage: 4,
-    pricePerDay: 98,
-  },
-  {
-    model: "Family Minivan",
-    image:
-      "https://images.unsplash.com/photo-1543465077-db45d34b88a5?auto=format&fit=crop&w=900&q=75",
+      "https://carrental4x4.com/wp-content/uploads/2024/12/safari-Van-1030x763.jpeg",
     category: "Group",
     seats: 7,
     transmission: "Automatic",
-    luggage: 5,
-    pricePerDay: 89,
-  },
-  {
-    model: "Open-Top Roadster",
-    image:
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=75",
-    category: "Premium",
-    seats: 2,
-    transmission: "Automatic",
-    luggage: 1,
-    pricePerDay: 149,
-  },
-  {
-    model: "Camper Van",
-    image:
-      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=900&q=75",
-    category: "Road trip",
-    seats: 4,
-    transmission: "Manual",
     luggage: 4,
-    pricePerDay: 119,
+    pricePerDay: 120,
+  },
+  {
+    model: "Safari Land Cruiser",
+    image:
+      "https://images.unsplash.com/photo-1664760536218-44efb2696288?auto=format&fit=crop&w=900&q=75",
+    category: "Group",
+    seats: 7,
+    transmission: "Automatic",
+    luggage: 4,
+    pricePerDay: 140,
   },
 ];
+
+
