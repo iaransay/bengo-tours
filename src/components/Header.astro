@@ -1,0 +1,108 @@
+---
+const links = [
+  { href: "#tours", label: "Tours" },
+  { href: "#cars", label: "Car rental" },
+  { href: "#about", label: "About" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
+>
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <a href="#top" class="font-display text-2xl font-semibold text-white">
+      Terraventura
+    </a>
+    <nav class="hidden items-center gap-8 md:flex">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm font-medium text-white/90 transition hover:text-white"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href="#contact"
+        class="rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-900/20 transition hover:bg-brand-500"
+      >
+        Book now
+      </a>
+    </nav>
+    <button
+      id="menu-toggle"
+      type="button"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      class="text-white md:hidden"
+    >
+      <svg
+        class="h-7 w-7"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.8"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+      </svg>
+    </button>
+  </div>
+  <nav
+    id="mobile-menu"
+    class="hidden flex-col gap-1 bg-stone-950/95 px-6 pb-6 pt-2 backdrop-blur md:hidden"
+  >
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          class="rounded-lg px-3 py-3 text-base font-medium text-white/90 transition hover:bg-white/10"
+        >
+          {link.label}
+        </a>
+      ))
+    }
+    <a
+      href="#contact"
+      class="mt-2 rounded-full bg-brand-600 px-5 py-3 text-center text-base font-semibold text-white"
+    >
+      Book now
+    </a>
+  </nav>
+</header>
+
+<script>
+  const header = document.getElementById("site-header");
+  const toggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  const applyScrollState = () => {
+    const scrolled = window.scrollY > 40;
+    header?.classList.toggle("bg-stone-950/85", scrolled);
+    header?.classList.toggle("backdrop-blur", scrolled);
+    header?.classList.toggle("shadow-lg", scrolled);
+  };
+
+  applyScrollState();
+  window.addEventListener("scroll", applyScrollState, { passive: true });
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = mobileMenu?.classList.toggle("flex");
+    mobileMenu?.classList.toggle("hidden");
+    toggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+  });
+
+  mobileMenu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.add("hidden");
+      mobileMenu.classList.remove("flex");
+      toggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>

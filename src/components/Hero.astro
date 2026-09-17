@@ -1,0 +1,47 @@
+---
+const heroImage =
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2000&q=80";
+---
+
+<section id="top" class="relative flex min-h-svh items-center">
+  <img
+    src={heroImage}
+    alt="Sunrise over a dramatic mountain range"
+    class="absolute inset-0 h-full w-full object-cover"
+    fetchpriority="high"
+  />
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-stone-950/60 via-stone-950/30 to-stone-950/70"
+  >
+  </div>
+  <div class="relative mx-auto w-full max-w-7xl px-6 pb-24 pt-36">
+    <p
+      class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-brand-300"
+    >
+      Tours · Trips · Car rental
+    </p>
+    <h1
+      class="max-w-3xl font-display text-5xl font-semibold leading-tight text-white sm:text-6xl lg:text-7xl"
+    >
+      Travel further.<br />Wander wilder.
+    </h1>
+    <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
+      Hand-crafted journeys and a fleet ready for the open road. From alpine
+      peaks to desert nights, we take care of everything except the memories.
+    </p>
+    <div class="mt-10 flex flex-wrap gap-4">
+      <a
+        href="#tours"
+        class="rounded-full bg-brand-600 px-8 py-4 text-base font-semibold text-white shadow-xl shadow-brand-900/30 transition hover:bg-brand-500"
+      >
+        Explore tours
+      </a>
+      <a
+        href="#cars"
+        class="rounded-full border border-white/40 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur transition hover:bg-white/20"
+      >
+        Rent a car
+      </a>
+    </div>
+  </div>
+</section>

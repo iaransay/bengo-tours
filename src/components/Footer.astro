@@ -1,0 +1,64 @@
+---
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Tours & trips", href: "#tours" },
+      { label: "Car rental", href: "#cars" },
+      { label: "About us", href: "#about" },
+      { label: "Contact", href: "#contact" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { label: "FAQ", href: "#contact" },
+      { label: "Booking terms", href: "#contact" },
+      { label: "Insurance", href: "#contact" },
+      { label: "Privacy policy", href: "#contact" },
+    ],
+  },
+];
+---
+
+<footer class="bg-stone-950 text-white">
+  <div
+    class="mx-auto grid max-w-7xl gap-12 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4"
+  >
+    <div class="sm:col-span-2">
+      <p class="font-display text-2xl font-semibold">Terraventura</p>
+      <p class="mt-4 max-w-sm leading-relaxed text-white/60">
+        Tours, trips and rental cars for travelers who like the scenic route.
+        Based in Madrid, at home everywhere.
+      </p>
+    </div>
+    {
+      columns.map((column) => (
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-white/50">
+            {column.title}
+          </h3>
+          <ul class="mt-4 space-y-3">
+            {column.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-white/80 transition hover:text-white"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+  <div class="border-t border-white/10">
+    <p class="mx-auto max-w-7xl px-6 py-6 text-sm text-white/50">
+      © {year} Terraventura. All rights reserved.
+    </p>
+  </div>
+</footer>

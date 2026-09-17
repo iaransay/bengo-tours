@@ -1,0 +1,145 @@
+---
+const testimonials = [
+  {
+    quote:
+      "The Sahara trip was flawless from pickup to drop-off. Our guide knew every dune and every story behind it.",
+    name: "Elena Marchetti",
+    trip: "Sahara Nights Caravan",
+    avatar:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=75",
+  },
+  {
+    quote:
+      "Rented a 4x4 for two weeks. Spotless car, zero paperwork drama, and they even mapped us a route off the tourist trail.",
+    name: "Marcus Boyd",
+    trip: "Adventure 4x4 rental",
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=75",
+  },
+  {
+    quote:
+      "Traveling solo, I felt looked after the entire week. The small group turned into friends I still talk to.",
+    name: "Aiko Tanaka",
+    trip: "Alpine Peaks Expedition",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=75",
+  },
+  {
+    quote:
+      "Booked a last-minute city break and they rearranged everything when our flight changed. Service you rarely see anymore.",
+    name: "Tomás Herrera",
+    trip: "City of Lights Weekend",
+    avatar:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=75",
+  },
+];
+---
+
+<section class="bg-stone-50 py-24">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="reveal flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.25em] text-brand-600"
+        >
+          Testimonials
+        </p>
+        <h2
+          class="mt-3 font-display text-4xl font-semibold text-stone-900 sm:text-5xl"
+        >
+          Trusted by travelers everywhere
+        </h2>
+      </div>
+      <div class="flex gap-3">
+        <button
+          id="testimonials-prev"
+          type="button"
+          aria-label="Previous testimonials"
+          class="flex h-12 w-12 items-center justify-center rounded-full border border-stone-300 text-stone-700 transition hover:border-brand-600 hover:text-brand-600"
+        >
+          <svg
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+          </svg>
+        </button>
+        <button
+          id="testimonials-next"
+          type="button"
+          aria-label="Next testimonials"
+          class="flex h-12 w-12 items-center justify-center rounded-full border border-stone-300 text-stone-700 transition hover:border-brand-600 hover:text-brand-600"
+        >
+          <svg
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div
+      id="testimonials-track"
+      class="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
+      {
+        testimonials.map((item) => (
+          <figure class="reveal w-[85%] shrink-0 snap-start rounded-2xl bg-white p-8 shadow-sm ring-1 ring-stone-200 sm:w-[46%] lg:w-[31.5%]">
+            <svg
+              class="h-8 w-8 text-brand-300"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" />
+            </svg>
+            <blockquote class="mt-4 leading-relaxed text-stone-700">
+              {item.quote}
+            </blockquote>
+            <figcaption class="mt-6 flex items-center gap-3">
+              <img
+                src={item.avatar}
+                alt={item.name}
+                loading="lazy"
+                class="h-11 w-11 rounded-full object-cover"
+              />
+              <div>
+                <p class="text-sm font-semibold text-stone-900">{item.name}</p>
+                <p class="text-xs text-stone-500">{item.trip}</p>
+              </div>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById("testimonials-track");
+  const prev = document.getElementById("testimonials-prev");
+  const next = document.getElementById("testimonials-next");
+  const cardWidth = () =>
+    track?.firstElementChild instanceof HTMLElement
+      ? track.firstElementChild.offsetWidth + 24
+      : 0;
+
+  prev?.addEventListener("click", () =>
+    track?.scrollBy({ left: -cardWidth(), behavior: "smooth" })
+  );
+  next?.addEventListener("click", () =>
+    track?.scrollBy({ left: cardWidth(), behavior: "smooth" })
+  );
+</script>

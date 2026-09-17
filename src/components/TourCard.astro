@@ -1,0 +1,52 @@
+---
+import type { Tour } from "../data/tours";
+
+interface Props {
+  tour: Tour;
+}
+
+const { tour } = Astro.props;
+---
+
+<article
+  class="reveal group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-stone-200 transition hover:shadow-xl"
+>
+  <div class="relative aspect-[4/3] overflow-hidden">
+    <img
+      src={tour.image}
+      alt={tour.name}
+      loading="lazy"
+      class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+    />
+    <span
+      class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-stone-800 backdrop-blur"
+    >
+      {tour.tag}
+    </span>
+    <span
+      class="absolute right-4 top-4 rounded-full bg-stone-950/70 px-3 py-1 text-xs font-semibold text-white backdrop-blur"
+    >
+      {tour.days} days
+    </span>
+  </div>
+  <div class="p-6">
+    <h3 class="font-display text-xl font-semibold text-stone-900">
+      {tour.name}
+    </h3>
+    <p class="mt-2 text-sm leading-relaxed text-stone-600">{tour.blurb}</p>
+    <div class="mt-5 flex items-center justify-between">
+      <p class="text-sm text-stone-500">
+        From
+        <span class="ml-1 text-lg font-bold text-stone-900">
+          ${tour.priceFrom.toLocaleString("en-US")}
+        </span>
+      </p>
+      <a
+        href="#contact"
+        class="text-sm font-semibold text-brand-600 transition hover:text-brand-500"
+      >
+        View details →
+      </a>
+    </div>
+  </div>
+</article>
