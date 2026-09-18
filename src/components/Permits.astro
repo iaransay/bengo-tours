@@ -1,0 +1,81 @@
+---
+import PermitCard from "./PermitCard.astro";
+import { permits } from "../data/permits";
+
+const bookingSteps = [
+  {
+    title: "Send us your dates",
+    text: "Every permit is tied to one named person on one tracking day, so we start from your travel window.",
+  },
+  {
+    title: "We check UWA availability",
+    text: "Gorilla permits sell out months ahead in June–September and December–February. We confirm what is actually open.",
+  },
+  {
+    title: "Passport details",
+    text: "The Uganda Wildlife Authority issues each permit against a passport, so we need a scan per trekker to file it.",
+  },
+  {
+    title: "Permit in your name",
+    text: "Once paid, UWA issues the permit and we arrange the drive and the pre-dawn transfer to the trailhead.",
+  },
+];
+---
+
+<section id="permits" class="bg-stone-50 py-24">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="reveal max-w-2xl">
+      <p
+        class="text-sm font-semibold uppercase tracking-[0.25em] text-brand-600"
+      >
+        Permits
+      </p>
+      <h2
+        class="mt-3 font-display text-4xl font-semibold text-stone-900 sm:text-5xl"
+      >
+        Uganda Wildlife Authority permits
+      </h2>
+      <p class="mt-4 text-lg leading-relaxed text-stone-600">
+        Gorillas, chimpanzees and golden monkeys can only be tracked with a
+        permit issued by the Uganda Wildlife Authority. We secure yours, put it
+        in your name, and build the driving days around it.
+      </p>
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {permits.map((permit) => <PermitCard permit={permit} />)}
+    </div>
+
+    <div
+      class="reveal mt-20 rounded-3xl bg-stone-950 px-8 py-14 text-white sm:px-14"
+    >
+      <h3 class="font-display text-3xl font-semibold">How booking works</h3>
+      <p class="mt-3 max-w-2xl leading-relaxed text-white/70">
+        Permits are the one part of a Uganda trip you cannot leave until the
+        last minute. Here is how we handle it.
+      </p>
+      <ol class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          bookingSteps.map((step, index) => (
+            <li>
+              <span class="font-display text-4xl font-semibold text-brand-400">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h4 class="mt-3 font-semibold text-white">{step.title}</h4>
+              <p class="mt-2 text-sm leading-relaxed text-white/60">
+                {step.text}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <p class="reveal mt-8 max-w-3xl text-sm leading-relaxed text-stone-500">
+      Rates shown are the Uganda Wildlife Authority tariff for foreign
+      non-residents, per person, and exclude our service and transport. UWA
+      reviews its tariff periodically — we confirm the current rate and
+      availability in writing before you pay.
+    </p>
+  </div>
+</section>

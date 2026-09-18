@@ -30,6 +30,16 @@ export const cars: Car[] = [
     pricePerDay: 80,
   },
   {
+    model: "Toyota Hilux",
+    image:
+      "https://images.unsplash.com/photo-1786677039202-e7749aceb7f5?auto=format&fit=crop&w=800&h=800&crop=entropy&q=75",
+    category: "Economy",
+    seats: 4,
+    transmission: "Manual",
+    luggage: 2,
+    pricePerDay: 90,
+  },
+  {
     model: "Toyota Hiace",
     image:
       "https://carrental4x4.com/wp-content/uploads/2024/12/safari-Van-1030x763.jpeg",
