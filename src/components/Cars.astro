@@ -28,3 +28,60 @@ import { cars } from "../data/cars";
     </div>
   </div>
 </section>
+
+<script>
+  const findDialog = (el: HTMLElement) =>
+    el.closest("article")?.querySelector<HTMLDialogElement>(
+      ".car-gallery-dialog"
+    );
+
+  const scrollToSlide = (track: HTMLElement, direction: -1 | 1) => {
+    const slideWidth =
+      track.firstElementChild instanceof HTMLElement
+        ? track.firstElementChild.offsetWidth
+        : 0;
+    track.scrollBy({ left: direction * slideWidth, behavior: "smooth" });
+  };
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+
+    const trigger = target.closest<HTMLElement>(".car-gallery-trigger");
+    if (trigger) {
+      findDialog(trigger)?.showModal();
+      return;
+    }
+
+    const closeButton = target.closest<HTMLElement>(".car-gallery-close");
+    if (closeButton) {
+      closeButton.closest("dialog")?.close();
+      return;
+    }
+
+    const dialog = target.closest<HTMLDialogElement>(".car-gallery-dialog");
+    if (dialog && target === dialog) {
+      dialog.close();
+      return;
+    }
+
+    const prevButton = target.closest<HTMLElement>(".car-gallery-prev");
+    const nextButton = target.closest<HTMLElement>(".car-gallery-next");
+    if (!prevButton && !nextButton) return;
+
+    const track = target
+      .closest(".car-gallery-dialog")
+      ?.querySelector<HTMLElement>(".car-gallery-track");
+    if (track) scrollToSlide(track, prevButton ? -1 : 1);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const openDialog = document.querySelector<HTMLDialogElement>(
+      ".car-gallery-dialog[open]"
+    );
+    if (!openDialog || (event.key !== "ArrowLeft" && event.key !== "ArrowRight"))
+      return;
+
+    const track = openDialog.querySelector<HTMLElement>(".car-gallery-track");
+    if (track) scrollToSlide(track, event.key === "ArrowLeft" ? -1 : 1);
+  });
+</script>

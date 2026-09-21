@@ -1,19 +1,26 @@
 ---
 import type { Car } from "../data/cars";
+import { withBase } from "../lib/withBase";
 
 interface Props {
   car: Car;
 }
 
 const { car } = Astro.props;
+const hasGallery = car.images.length > 1;
 ---
 
 <article
   class="reveal group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-stone-200 transition hover:shadow-xl"
 >
-  <div class="relative aspect-[16/10] overflow-hidden">
+  <button
+    type="button"
+    class="car-gallery-trigger relative block aspect-[16/10] w-full overflow-hidden text-left"
+    aria-haspopup="dialog"
+    aria-label={`View photos of ${car.model}`}
+  >
     <img
-      src={car.image}
+      src={withBase(car.images[0])}
       alt={car.model}
       loading="lazy"
       class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
@@ -23,7 +30,32 @@ const { car } = Astro.props;
     >
       {car.category}
     </span>
-  </div>
+    {
+      hasGallery && (
+        <span class="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-stone-950/70 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+          <svg
+            class="h-3.5 w-3.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.8"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.132.174-1.234.201-2.104 1.313-2.104 2.567v9.176c0 1.354 1.097 2.453 2.45 2.453h15.2c1.353 0 2.45-1.1 2.45-2.453V9.97c0-1.254-.87-2.366-2.104-2.567a48.11 48.11 0 0 0-1.132-.174 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-4.665 0 2.192 2.192 0 0 0-1.736 1.04l-.821 1.316Z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z"
+            />
+          </svg>
+          {car.images.length} photos
+        </span>
+      )
+    }
+  </button>
   <div class="p-6">
     <h3 class="font-display text-xl font-semibold text-stone-900">
       {car.model}
@@ -95,4 +127,88 @@ const { car } = Astro.props;
       </a>
     </div>
   </div>
+
+  <dialog class="car-gallery-dialog m-auto w-full max-w-3xl rounded-3xl bg-stone-950 p-0 backdrop:bg-stone-950/80">
+    <div class="relative">
+      <button
+        type="button"
+        class="car-gallery-close absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+        aria-label="Close gallery"
+      >
+        <svg
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18 18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <div
+        class="car-gallery-track flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {
+          car.images.map((src) => (
+            <img
+              src={withBase(src)}
+              alt={car.model}
+              loading="lazy"
+              class="aspect-[4/3] w-full shrink-0 snap-center object-cover sm:aspect-[16/10]"
+            />
+          ))
+        }
+      </div>
+      {
+        hasGallery && (
+          <>
+            <button
+              type="button"
+              class="car-gallery-prev absolute left-4 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+              aria-label="Previous photo"
+            >
+              <svg
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 19.5 8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="car-gallery-next absolute right-4 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+              aria-label="Next photo"
+            >
+              <svg
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+          </>
+        )
+      }
+    </div>
+    <p class="px-6 py-5 text-center font-display text-lg font-semibold text-white">
+      {car.model}
+    </p>
+  </dialog>
 </article>

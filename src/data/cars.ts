@@ -1,6 +1,6 @@
 export interface Car {
   model: string;
-  image: string;
+  images: string[];
   category: string;
   seats: number;
   transmission: "Automatic" | "Manual";
@@ -9,55 +9,88 @@ export interface Car {
 }
 
 export const cars: Car[] = [
+  // {
+  //   model: "Suzuki Jimny",
+  //   image:
+  //     "https://images.unsplash.com/photo-1675231305497-1dc08c36b0f5?auto=format&fit=crop&w=900&h=700&q=75&crop=entropy",
+  //   category: "Comfort",
+  //   seats: 4,
+  //   transmission: "Automatic",
+  //   luggage: 2,
+  //   pricePerDay: 70,
+  // },
   {
-    model: "Suzuki Jimny",
-    image:
-      "https://images.unsplash.com/photo-1693485314009-5a5a0a445186?auto=format&fit=crop&w=900&q=75",
-    category: "Comfort",
-    seats: 4,
-    transmission: "Automatic",
-    luggage: 2,
-    pricePerDay: 70,
-  },
-  {
-    model: "Toyota Land Cruiser TX Pardo",
-    image:
-      "https://images.unsplash.com/photo-1650159374693-7b46b80c2f09?auto=format&fit=crop&w=900&q=75",
+    model: "Toyota Land Cruiser Prado TZ",
+    images: [
+      "/cars/land-cruiser-prado.jpeg",
+      "/cars/land-cruiser-prado-2.jpeg",
+      "/cars/land-cruiser-prado-3.jpeg",
+      "/cars/land-cruiser-prado-5.jpeg",
+      "/cars/land-cruiser-prado-6.jpeg",
+    ],
     category: "Economy",
     seats: 5,
     transmission: "Manual",
     luggage: 3,
-    pricePerDay: 80,
+    pricePerDay: 0,
   },
   {
-    model: "Toyota Hilux",
-    image:
-      "https://images.unsplash.com/photo-1786677039202-e7749aceb7f5?auto=format&fit=crop&w=800&h=800&crop=entropy&q=75",
+    model: "Toyota Land Cruiser J70",
+    images: [
+      "/cars/land-cruiser-j70.jpg",
+      "/cars/land-cruiser-j70-2.jpg",
+      "/cars/land-cruiser-j70-3.jpg",
+      "/cars/land-cruiser-j70-4.jpg",
+    ],
     category: "Economy",
     seats: 4,
     transmission: "Manual",
     luggage: 2,
-    pricePerDay: 90,
+    pricePerDay: 0,
   },
   {
     model: "Toyota Hiace",
-    image:
-      "https://carrental4x4.com/wp-content/uploads/2024/12/safari-Van-1030x763.jpeg",
+    images: [
+      "cars/hiace.jpeg",
+      "cars/hiace-2.jpeg",
+      "cars/hiace-3.jpeg",
+    ],
     category: "Group",
     seats: 7,
     transmission: "Automatic",
     luggage: 4,
-    pricePerDay: 120,
+    pricePerDay: 0,
+  },
+  {
+    model: "Toyota Noah",
+    images: [
+      "cars/noah.jpeg",
+      "cars/noah-2.jpeg",
+      "cars/noah-3.jpeg",
+      "cars/noah-4.jpeg",
+      "cars/noah-5.jpeg",
+      "cars/noah-6.jpeg",
+      "cars/noah-7.jpeg",
+      "cars/noah-8.jpeg",
+    ],
+    category: "Group",
+    seats: 7,
+    transmission: "Automatic",
+    luggage: 4,
+    pricePerDay: 0,
   },
   {
     model: "Safari Land Cruiser",
-    image:
-      "https://images.unsplash.com/photo-1664760536218-44efb2696288?auto=format&fit=crop&w=900&q=75",
+    images: [
+      "/cars/safari-land-cruiser.jpeg",
+      "/cars/safari-land-cruiser-2.jpeg",
+      "/cars/safari-land-cruiser-3.jpeg"
+    ],
     category: "Group",
     seats: 7,
     transmission: "Automatic",
     luggage: 4,
-    pricePerDay: 140,
+    pricePerDay: 0,
   },
 ];
 
