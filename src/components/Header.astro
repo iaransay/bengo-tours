@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../lib/withBase";
+
 const links = [
   // { href: "#tours", label: "Tours" },
   { href: "#cars", label: "Car rental" },
@@ -13,8 +15,15 @@ const links = [
   class="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-    <a href="#top" class="font-display text-2xl font-semibold text-white">
-      Bengo Tours Uganda
+    <a href="#top" class="relative z-10 flex items-center gap-3">
+      <img
+        src={withBase("/logo.png")}
+        alt="Bengo Tours and Travels"
+        class="-my-6 h-20 w-20 object-contain drop-shadow-lg sm:-my-8 sm:h-28 sm:w-28"
+      />
+      <span class="font-display text-2xl font-semibold text-white">
+        Bengo Tours Uganda
+      </span>
     </a>
     <nav class="hidden items-center gap-8 md:flex">
       {
