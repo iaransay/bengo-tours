@@ -6,6 +6,7 @@ export interface Car {
   transmission: "Automatic" | "Manual";
   luggage: number;
   pricePerDay: number;
+  pricePerDayWithDriver: number;
 }
 
 export const cars: Car[] = [
@@ -22,17 +23,18 @@ export const cars: Car[] = [
   {
     model: "Toyota Land Cruiser Prado TZ",
     images: [
-      "/cars/land-cruiser-prado.jpeg",
-      "/cars/land-cruiser-prado-2.jpeg",
-      "/cars/land-cruiser-prado-3.jpeg",
-      "/cars/land-cruiser-prado-5.jpeg",
-      "/cars/land-cruiser-prado-6.jpeg",
+      "/cars/land-cruiser-prado.jpg",
+      "/cars/land-cruiser-prado-2.jpg",
+      "/cars/land-cruiser-prado-3.jpg",
+      "/cars/land-cruiser-prado-5.jpg",
+      "/cars/land-cruiser-prado-6.jpg",
     ],
     category: "Economy",
     seats: 5,
     transmission: "Manual",
     luggage: 3,
     pricePerDay: 0,
+    pricePerDayWithDriver: 0,
   },
   {
     model: "Toyota Land Cruiser J70",
@@ -47,11 +49,12 @@ export const cars: Car[] = [
     transmission: "Manual",
     luggage: 2,
     pricePerDay: 0,
+    pricePerDayWithDriver: 0,
   },
   {
     model: "Toyota Hiace",
     images: [
-      "cars/hiace.jpeg",
+      "cars/hiace.jpg",
       "cars/hiace-2.jpeg",
       "cars/hiace-3.jpeg",
     ],
@@ -60,11 +63,12 @@ export const cars: Car[] = [
     transmission: "Automatic",
     luggage: 4,
     pricePerDay: 0,
+    pricePerDayWithDriver: 0,
   },
   {
     model: "Toyota Noah",
     images: [
-      "cars/noah.jpeg",
+      "cars/noah.jpg",
       "cars/noah-2.jpeg",
       "cars/noah-3.jpeg",
       "cars/noah-4.jpeg",
@@ -78,19 +82,21 @@ export const cars: Car[] = [
     transmission: "Automatic",
     luggage: 4,
     pricePerDay: 0,
+    pricePerDayWithDriver: 0,
   },
   {
     model: "Safari Land Cruiser",
     images: [
-      "/cars/safari-land-cruiser.jpeg",
-      "/cars/safari-land-cruiser-2.jpeg",
-      "/cars/safari-land-cruiser-3.jpeg"
+      "/cars/safari-land-cruiser.jpg",
+      "/cars/safari-land-cruiser-2.jpg",
+      "/cars/safari-land-cruiser-3.jpg"
     ],
     category: "Group",
     seats: 7,
     transmission: "Automatic",
     luggage: 4,
     pricePerDay: 0,
+    pricePerDayWithDriver: 0,
   },
 ];
 

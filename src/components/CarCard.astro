@@ -114,11 +114,16 @@ const hasGallery = car.images.length > 1;
         {car.luggage} bags
       </li>
     </ul>
-    <div class="mt-5 flex items-center justify-between border-t border-stone-100 pt-5">
-      <p class="text-sm text-stone-500">
-        <span class="text-lg font-bold text-stone-900">${car.pricePerDay}</span>
-        /day
-      </p>
+    <div class="mt-5 flex items-end justify-between border-t border-stone-100 pt-5">
+      <div>
+        <p class="text-sm text-stone-500">
+          <span class="text-lg font-bold text-stone-900">${car.pricePerDay}</span>
+          /day self-drive
+        </p>
+        <p class="mt-0.5 text-xs text-stone-500">
+          ${car.pricePerDayWithDriver}/day with driver
+        </p>
+      </div>
       <a
         href="#contact"
         class="rounded-full bg-stone-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-600"
