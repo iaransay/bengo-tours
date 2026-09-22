@@ -1,0 +1,98 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { withBase } from "../lib/withBase";
+import { faqCategories } from "../data/faq";
+
+const contactHref = `${withBase("/")}#contact`;
+---
+
+<Base
+  title="FAQ — Bengo Tours Uganda"
+  description="Answers to common questions about booking tours, renting a car with or without a driver, gorilla and chimpanzee permits, and traveling in Uganda."
+>
+  <Header />
+  <main>
+    <section class="bg-stone-950 pb-20 pt-40 text-white">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.25em] text-brand-400"
+        >
+          Support
+        </p>
+        <h1 class="mt-3 font-display text-4xl font-semibold sm:text-5xl">
+          Frequently asked questions
+        </h1>
+        <p class="mt-4 text-lg leading-relaxed text-white/70">
+          Everything about booking, car rental and gorilla permits. Can't
+          find your answer?
+          <a
+            href={contactHref}
+            class="font-semibold text-brand-400 underline underline-offset-4 transition hover:text-brand-300"
+          >
+            Message us on WhatsApp
+          </a>
+          .
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-stone-50 py-20">
+      <div class="mx-auto max-w-3xl space-y-14 px-6">
+        {
+          faqCategories.map((category) => (
+            <div class="reveal">
+              <h2 class="font-display text-2xl font-semibold text-stone-900">
+                {category.title}
+              </h2>
+              <div class="mt-6 divide-y divide-stone-200 overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200">
+                {category.items.map((item) => (
+                  <details class="group p-6">
+                    <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-stone-900 [&::-webkit-details-marker]:hidden">
+                      {item.question}
+                      <svg
+                        class="h-5 w-5 shrink-0 text-stone-400 transition duration-200 group-open:rotate-45"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 4.5v15m7.5-7.5h-15"
+                        />
+                      </svg>
+                    </summary>
+                    <p class="mt-3 leading-relaxed text-stone-600">
+                      {item.answer}
+                    </p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <h2 class="font-display text-3xl font-semibold text-stone-900">
+          Still have questions?
+        </h2>
+        <p class="mt-3 text-lg text-stone-600">
+          We're happy to walk through the details with you directly.
+        </p>
+        <a
+          href={contactHref}
+          class="mt-8 inline-flex items-center justify-center rounded-full bg-brand-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-brand-900/20 transition hover:bg-brand-500"
+        >
+          Go to contact form
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

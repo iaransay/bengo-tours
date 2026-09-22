@@ -1,26 +1,29 @@
 ---
+import { withBase } from "../lib/withBase";
+
 const year = new Date().getFullYear();
+const homeHref = withBase("/");
 
 const columns = [
   {
     title: "Explore",
     links: [
-      // { label: "Tours & trips", href: "#tours" },
-      { label: "Car rental", href: "#cars" },
-      { label: "Permits", href: "#permits" },
-      { label: "About us", href: "#about" },
-      { label: "Contact", href: "#contact" },
+      // { label: "Tours & trips", href: `${homeHref}#tours` },
+      { label: "Car rental", href: `${homeHref}#cars` },
+      { label: "Permits", href: `${homeHref}#permits` },
+      { label: "About us", href: `${homeHref}#about` },
+      { label: "Contact", href: `${homeHref}#contact` },
     ],
   },
-  // {
-  //   title: "Support",
-  //   links: [
-  //     { label: "FAQ", href: "#contact" },
-  //     { label: "Booking terms", href: "#contact" },
-  //     { label: "Insurance", href: "#contact" },
-  //     { label: "Privacy policy", href: "#contact" },
-  //   ],
-  // },
+  {
+    title: "Support",
+    links: [
+      { label: "FAQ", href: withBase("/faq") },
+      { label: "Booking terms", href: `${homeHref}#contact` },
+      { label: "Insurance", href: `${homeHref}#contact` },
+      { label: "Privacy policy", href: `${homeHref}#contact` },
+    ],
+  },
 ];
 ---
 

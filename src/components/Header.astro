@@ -1,12 +1,14 @@
 ---
 import { withBase } from "../lib/withBase";
 
+const homeHref = withBase("/");
+
 const links = [
-  // { href: "#tours", label: "Tours" },
-  { href: "#cars", label: "Car rental" },
-  { href: "#permits", label: "Permits" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
+  // { href: `${homeHref}#tours`, label: "Tours" },
+  { href: `${homeHref}#cars`, label: "Car rental" },
+  { href: `${homeHref}#permits`, label: "Permits" },
+  { href: `${homeHref}#about`, label: "About" },
+  { href: `${homeHref}#contact`, label: "Contact" },
 ];
 ---
 
@@ -15,7 +17,7 @@ const links = [
   class="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-    <a href="#top" class="relative z-10 flex items-center gap-3">
+    <a href={`${homeHref}#top`} class="relative z-10 flex items-center gap-3">
       <img
         src={withBase("/logo.png")}
         alt="Bengo Tours and Travels"
@@ -37,7 +39,7 @@ const links = [
         ))
       }
       <a
-        href="#contact"
+        href={`${homeHref}#contact`}
         class="rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-900/20 transition hover:bg-brand-500"
       >
         Book now
@@ -79,7 +81,7 @@ const links = [
       ))
     }
     <a
-      href="#contact"
+      href={`${homeHref}#contact`}
       class="mt-2 rounded-full bg-brand-600 px-5 py-3 text-center text-base font-semibold text-white"
     >
       Book now
