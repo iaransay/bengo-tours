@@ -1,0 +1,141 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { withBase } from "../lib/withBase";
+
+const contactHref = `${withBase("/")}#contact`;
+const lastUpdated = "23 September 2026";
+
+const sections = [
+  {
+    title: "1. Who we are",
+    body: [
+      "This privacy policy explains how Bengo Tours and Travels (\"Bengo Tours\", \"we\", \"us\") handles information when you use this website.",
+    ],
+  },
+  {
+    title: "2. What information we collect",
+    body: [
+      "This site has no server or database behind it — it's a static set of pages. The only information involved is whatever you choose to type into the contact form: your name, your travel dates, and any message you write.",
+    ],
+  },
+  {
+    title: "3. How the contact form actually works",
+    body: [
+      "When you submit the contact form, nothing is uploaded to us or stored anywhere. The form simply builds a WhatsApp message from what you typed and opens WhatsApp with that message ready to send. From that point on, you're sending us a normal WhatsApp message, which is handled under WhatsApp's own privacy policy (WhatsApp is operated by Meta).",
+      "If you'd rather not use WhatsApp, you can reach us by phone using the number listed in the contact section instead.",
+    ],
+  },
+  {
+    title: "4. How we use your information",
+    body: [
+      "Anything you send us via WhatsApp or phone is used only to respond to your enquiry, prepare a quote, or manage your booking. We don't use it for marketing you haven't asked for, and we don't sell or rent it to anyone.",
+    ],
+  },
+  {
+    title: "5. Cookies and analytics",
+    body: [
+      "This website does not use cookies, and it does not run any third-party analytics or advertising trackers. If that changes in the future, this policy will be updated to say so before it happens.",
+    ],
+  },
+  {
+    title: "6. Data sharing",
+    body: [
+      "We don't share your information with third parties, except where a booking genuinely requires it — for example, passing your name and passport details to the Uganda Wildlife Authority to issue a park permit in your name.",
+    ],
+  },
+  {
+    title: "7. Data retention",
+    body: [
+      "We keep booking-related conversations for as long as reasonably needed to deliver your trip and handle any after-the-fact questions, then delete them.",
+    ],
+  },
+  {
+    title: "8. Your rights",
+    body: [
+      "You can ask us at any time what information we hold about you from a past enquiry or booking, and ask us to correct or delete it. Message us on WhatsApp or by phone to make that request.",
+    ],
+  },
+  {
+    title: "9. Changes to this policy",
+    body: [
+      `We may update this policy as the site or our tools change. The version published here is always the current one. Last updated: ${lastUpdated}.`,
+    ],
+  },
+  {
+    title: "10. Contact us",
+    body: [
+      "Questions about your data or this policy? Reach us on WhatsApp or through the contact form.",
+    ],
+  },
+];
+---
+
+<Base
+  title="Privacy Policy — Bengo Tours Uganda"
+  description="How Bengo Tours and Travels handles information from this website's contact form."
+>
+  <Header />
+  <main>
+    <section class="bg-stone-950 pb-20 pt-40 text-white">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.25em] text-brand-400"
+        >
+          Support
+        </p>
+        <h1 class="mt-3 font-display text-4xl font-semibold sm:text-5xl">
+          Privacy policy
+        </h1>
+        <p class="mt-4 text-lg leading-relaxed text-white/70">
+          A plain explanation of what happens to your information on this
+          site.
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-stone-50 py-20">
+      <div class="mx-auto max-w-3xl px-6">
+        <div
+          class="reveal rounded-2xl bg-amber-50 p-6 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200"
+        >
+          This page is a starting template, not legal advice. Have it
+          reviewed by a lawyer familiar with Ugandan data protection law
+          before relying on it for real bookings.
+        </div>
+        <div class="reveal mt-10 space-y-12 rounded-3xl bg-white p-8 ring-1 ring-stone-200 sm:p-12">
+          {
+            sections.map((section) => (
+              <div>
+                <h2 class="font-display text-xl font-semibold text-stone-900">
+                  {section.title}
+                </h2>
+                <div class="mt-3 space-y-3">
+                  {section.body.map((paragraph) => (
+                    <p class="leading-relaxed text-stone-600">{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <h2 class="font-display text-3xl font-semibold text-stone-900">
+          Questions about your data?
+        </h2>
+        <a
+          href={contactHref}
+          class="mt-8 inline-flex items-center justify-center rounded-full bg-brand-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-brand-900/20 transition hover:bg-brand-500"
+        >
+          Go to contact form
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

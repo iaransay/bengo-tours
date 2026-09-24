@@ -1,0 +1,156 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { withBase } from "../lib/withBase";
+
+const contactHref = `${withBase("/")}#contact`;
+const lastUpdated = "23 September 2026";
+
+const sections = [
+  {
+    title: "1. About these terms",
+    body: [
+      "These terms and conditions govern every booking made with Bengo Tours and Travels (\"Bengo Tours\", \"we\", \"us\"), whether for a guided tour, a self-drive or chauffeur-driven car rental, or a national park permit arranged on your behalf.",
+      "By sending a booking enquiry or paying a deposit, you confirm that you accept these terms on behalf of everyone in your party.",
+    ],
+  },
+  {
+    title: "2. Bookings and deposits",
+    body: [
+      "A booking is only confirmed once we've acknowledged availability and received the agreed deposit. Quotes shared before that point are estimates and may change based on availability, season, or group size.",
+    ],
+  },
+  {
+    title: "3. Payments",
+    body: [
+      "We accept mobile money, bank transfer, card payment via a secure link, and cash on arrival in Kampala. The balance of any tour, rental, or permit is due according to the schedule agreed at the time of booking, and always before the service is provided.",
+    ],
+  },
+  {
+    title: "4. Cancellations and rescheduling",
+    body: [
+      "Car rentals can be rescheduled free of charge up to 48 hours before pickup. Tour and permit cancellations are handled case by case — we'll always confirm the exact cancellation terms in writing before you pay, since park permits in particular carry their own non-refundable conditions (see section 6).",
+    ],
+  },
+  {
+    title: "5. Car rental terms",
+    body: [
+      "Self-drive rentals require a valid driving licence held for at least one year, plus a passport or national ID. International visitors also need an International Driving Permit or a Uganda-issued temporary permit.",
+      "Vehicles are rented on a full-to-full fuel basis: you collect with a full tank and return the same way. A refundable security deposit is required at pickup and is released once the vehicle is returned undamaged, less any fuel, cleaning, or traffic-fine shortfalls.",
+      "You're responsible for the vehicle for the full rental period, including any loss or damage not covered by the rental's insurance terms, which we'll explain in full before you drive off.",
+    ],
+  },
+  {
+    title: "6. Tours and park permits",
+    body: [
+      "Gorilla, chimpanzee, and other park permits are issued by the Uganda Wildlife Authority (UWA) in each traveler's name and are largely non-refundable once issued. We confirm availability and pricing in writing before you pay, but we can't be held responsible for UWA's own tariff changes or permit policy.",
+      "You must provide accurate passport details for every permit we book on your behalf — incorrect details can mean UWA refuses entry on the day, with no refund available.",
+    ],
+  },
+  {
+    title: "7. Your responsibilities as a traveler",
+    body: [
+      "You're responsible for arranging valid travel insurance, any required visas, and for meeting any health or vaccination requirements for entry into Uganda. We recommend comprehensive travel insurance that covers activity cancellation, medical evacuation, and personal belongings.",
+    ],
+  },
+  {
+    title: "8. Our liability",
+    body: [
+      "We take care in selecting vehicles, guides, and partner lodges, but we aren't liable for circumstances outside our reasonable control — including weather, wildlife behaviour, road conditions, or third-party service providers. Nothing in these terms limits liability that can't lawfully be excluded.",
+    ],
+  },
+  {
+    title: "9. Force majeure",
+    body: [
+      "Neither party is liable for delay or failure to perform an obligation because of events beyond reasonable control, including natural disasters, civil unrest, government action, or public health emergencies. We'll work with you in good faith to reschedule where possible.",
+    ],
+  },
+  {
+    title: "10. Governing law",
+    body: [
+      "These terms are governed by the laws of the Republic of Uganda, and any dispute will first be addressed through good-faith discussion between both parties.",
+    ],
+  },
+  {
+    title: "11. Changes to these terms",
+    body: [
+      `We may update these terms from time to time; the version in force is the one published on this page at the time of your booking. Last updated: ${lastUpdated}.`,
+    ],
+  },
+  {
+    title: "12. Contact us",
+    body: [
+      "Questions about a booking or these terms? Reach us on WhatsApp or through the contact form and we'll get back to you within one business day.",
+    ],
+  },
+];
+---
+
+<Base
+  title="Terms & Conditions — Bengo Tours Uganda"
+  description="The terms and conditions covering tours, car rental, and park permit bookings with Bengo Tours and Travels."
+>
+  <Header />
+  <main>
+    <section class="bg-stone-950 pb-20 pt-40 text-white">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.25em] text-brand-400"
+        >
+          Support
+        </p>
+        <h1 class="mt-3 font-display text-4xl font-semibold sm:text-5xl">
+          Terms & conditions
+        </h1>
+        <p class="mt-4 text-lg leading-relaxed text-white/70">
+          The rules that cover every tour, car rental, and permit booked
+          through Bengo Tours.
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-stone-50 py-20">
+      <div class="mx-auto max-w-3xl px-6">
+        <div
+          class="reveal rounded-2xl bg-amber-50 p-6 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200"
+        >
+          This page is a starting template, not legal advice. Have it
+          reviewed by a lawyer familiar with Ugandan consumer and tourism
+          law before relying on it for real bookings.
+        </div>
+        <div class="reveal mt-10 space-y-12 rounded-3xl bg-white p-8 ring-1 ring-stone-200 sm:p-12">
+          {
+            sections.map((section) => (
+              <div>
+                <h2 class="font-display text-xl font-semibold text-stone-900">
+                  {section.title}
+                </h2>
+                <div class="mt-3 space-y-3">
+                  {section.body.map((paragraph) => (
+                    <p class="leading-relaxed text-stone-600">{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <h2 class="font-display text-3xl font-semibold text-stone-900">
+          Questions before you book?
+        </h2>
+        <a
+          href={contactHref}
+          class="mt-8 inline-flex items-center justify-center rounded-full bg-brand-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-brand-900/20 transition hover:bg-brand-500"
+        >
+          Go to contact form
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
