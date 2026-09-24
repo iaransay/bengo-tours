@@ -10,9 +10,18 @@ import About from "../components/About.astro";
 import Testimonials from "../components/Testimonials.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
+import { getImage } from "astro:assets";
 import { withBase } from "../lib/withBase";
+import logo from "../assets/logo.png";
+import safariLandCruiser from "../assets/cars/safari-land-cruiser.jpg";
 
 const siteUrl = new URL(withBase("/"), Astro.site).href;
+const logoImage = await getImage({ src: logo, width: 512, format: "png" });
+const businessImage = await getImage({
+  src: safariLandCruiser,
+  width: 1200,
+  format: "jpeg",
+});
 
 const travelAgency = {
   "@context": "https://schema.org",
@@ -21,8 +30,8 @@ const travelAgency = {
   name: "Bengo Tours and Travels",
   alternateName: "Bengo Tours Uganda",
   url: siteUrl,
-  logo: new URL(withBase("/logo.png"), Astro.site).href,
-  image: new URL(withBase("/cars/safari-land-cruiser.jpg"), Astro.site).href,
+  logo: new URL(logoImage.src, Astro.site).href,
+  image: new URL(businessImage.src, Astro.site).href,
   description:
     "Car rental with or without a driver, safari vehicles and Uganda Wildlife Authority gorilla and chimpanzee permits, based in Kampala, Uganda.",
   telephone: "+256756659419",

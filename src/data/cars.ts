@@ -1,6 +1,22 @@
+import type { ImageMetadata } from "astro";
+
+const carPhotos = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/cars/*",
+  { eager: true }
+);
+
+// Resolves a filename in src/assets/cars/ so Astro can optimize it at build time.
+function photos(...files: string[]): ImageMetadata[] {
+  return files.map((file) => {
+    const photo = carPhotos[`../assets/cars/${file}`];
+    if (!photo) throw new Error(`Car photo not found: src/assets/cars/${file}`);
+    return photo.default;
+  });
+}
+
 export interface Car {
   model: string;
-  images: string[];
+  images: ImageMetadata[];
   category: string;
   seats: number;
   transmission: "Automatic" | "Manual";
@@ -22,13 +38,13 @@ export const cars: Car[] = [
   // },
   {
     model: "Toyota Land Cruiser Prado TZ",
-    images: [
-      "/cars/land-cruiser-prado.jpg",
-      "/cars/land-cruiser-prado-2.jpg",
-      "/cars/land-cruiser-prado-3.jpg",
-      "/cars/land-cruiser-prado-5.jpg",
-      "/cars/land-cruiser-prado-6.jpg",
-    ],
+    images: photos(
+      "land-cruiser-prado.jpg",
+      "land-cruiser-prado-2.jpg",
+      "land-cruiser-prado-3.jpg",
+      "land-cruiser-prado-5.jpg",
+      "land-cruiser-prado-6.jpg",
+    ),
     category: "Economy",
     seats: 5,
     transmission: "Manual",
@@ -38,13 +54,13 @@ export const cars: Car[] = [
   },
   {
     model: "Toyota Land Cruiser J70",
-    images: [
-      "/cars/land-cruiser-j70.jpg",
-      "/cars/land-cruiser-j70-2.jpg",
-      "/cars/land-cruiser-j70-3.jpg",
-      "/cars/land-cruiser-j70-4.jpg",
-      "/cars/land-cruiser-j70-5.jpg",
-    ],
+    images: photos(
+      "land-cruiser-j70.jpg",
+      "land-cruiser-j70-2.jpg",
+      "land-cruiser-j70-3.jpg",
+      "land-cruiser-j70-4.jpg",
+      "land-cruiser-j70-5.jpg",
+    ),
     category: "Economy",
     seats: 4,
     transmission: "Manual",
@@ -54,11 +70,11 @@ export const cars: Car[] = [
   },
   {
     model: "Toyota Hiace",
-    images: [
-      "cars/hiace.jpg",
-      "cars/hiace-2.jpeg",
-      "cars/hiace-3.jpeg",
-    ],
+    images: photos(
+      "hiace.jpeg",
+      "hiace-2.jpeg",
+      "hiace-3.jpeg",
+    ),
     category: "Group",
     seats: 7,
     transmission: "Automatic",
@@ -68,16 +84,16 @@ export const cars: Car[] = [
   },
   {
     model: "Toyota Noah",
-    images: [
-      "cars/noah.jpg",
-      "cars/noah-2.jpeg",
-      "cars/noah-3.jpeg",
-      "cars/noah-4.jpeg",
-      "cars/noah-5.jpeg",
-      "cars/noah-6.jpeg",
-      "cars/noah-7.jpeg",
-      "cars/noah-8.jpeg",
-    ],
+    images: photos(
+      "noah.jpeg",
+      "noah-2.jpeg",
+      "noah-3.jpeg",
+      "noah-4.jpeg",
+      "noah-5.jpeg",
+      "noah-6.jpeg",
+      "noah-7.jpeg",
+      "noah-8.jpeg",
+    ),
     category: "Group",
     seats: 7,
     transmission: "Automatic",
@@ -87,11 +103,11 @@ export const cars: Car[] = [
   },
   {
     model: "Safari Land Cruiser",
-    images: [
-      "/cars/safari-land-cruiser.jpg",
-      "/cars/safari-land-cruiser-2.jpg",
-      "/cars/safari-land-cruiser-3.jpg"
-    ],
+    images: photos(
+      "safari-land-cruiser.jpg",
+      "safari-land-cruiser-2.jpg",
+      "safari-land-cruiser-3.jpg",
+    ),
     category: "Group",
     seats: 7,
     transmission: "Automatic",
@@ -100,5 +116,3 @@ export const cars: Car[] = [
     pricePerDayWithDriver: 0,
   },
 ];
-
-

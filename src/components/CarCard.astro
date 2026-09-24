@@ -1,6 +1,6 @@
 ---
+import { Image } from "astro:assets";
 import type { Car } from "../data/cars";
-import { withBase } from "../lib/withBase";
 
 interface Props {
   car: Car;
@@ -19,10 +19,11 @@ const hasGallery = car.images.length > 1;
     aria-haspopup="dialog"
     aria-label={`View photos of ${car.model}`}
   >
-    <img
-      src={withBase(car.images[0])}
+    <Image
+      src={car.images[0]}
       alt={`${car.model} rental car in Uganda`}
-      loading="lazy"
+      widths={[400, 640, 800, 1200]}
+      sizes="(min-width: 1280px) 400px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
       class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
     />
     <span
@@ -158,10 +159,11 @@ const hasGallery = car.images.length > 1;
       >
         {
           car.images.map((src, index) => (
-            <img
-              src={withBase(src)}
+            <Image
+              src={src}
               alt={`${car.model}, photo ${index + 1} of ${car.images.length}`}
-              loading="lazy"
+              widths={[640, 768, 1152, 1536]}
+              sizes="(min-width: 768px) 768px, 100vw"
               class="aspect-[4/3] w-full shrink-0 snap-center object-cover sm:aspect-[16/10]"
             />
           ))

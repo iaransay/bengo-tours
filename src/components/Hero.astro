@@ -1,11 +1,16 @@
 ---
-const heroImage =
-  "https://images.unsplash.com/photo-1674909073723-e74e82810733?auto=format&fit=crop&w=2000&q=80";
+const heroPhoto =
+  "https://images.unsplash.com/photo-1674909073723-e74e82810733?auto=format&fit=crop&q=75";
+const heroSrcset = [640, 960, 1280, 1600, 2000]
+  .map((width) => `${heroPhoto}&w=${width} ${width}w`)
+  .join(", ");
 ---
 
 <section id="top" class="relative flex min-h-svh items-center">
   <img
-    src={heroImage}
+    src={`${heroPhoto}&w=1600`}
+    srcset={heroSrcset}
+    sizes="100vw"
     alt="Safari car game drive"
     class="absolute inset-0 h-full w-full object-cover"
     fetchpriority="high"

@@ -1,4 +1,10 @@
 ---
+const aboutPhoto =
+  "https://images.unsplash.com/photo-1570463662416-7d8e39fc67e2?auto=format&fit=crop&q=75";
+const aboutSrcset = [600, 900, 1200]
+  .map((width) => `${aboutPhoto}&w=${width} ${width}w`)
+  .join(", ");
+
 const stats = [
   { value: "12+", label: "Years on the road" },
   { value: "18k", label: "Happy travelers" },
@@ -13,7 +19,9 @@ const stats = [
   >
     <div class="reveal overflow-hidden rounded-3xl">
       <img
-        src="https://images.unsplash.com/photo-1570463662416-7d8e39fc67e2?auto=format&fit=crop&w=1200&q=75"
+        src={`${aboutPhoto}&w=1200`}
+        srcset={aboutSrcset}
+        sizes="(min-width: 1280px) 600px, (min-width: 1024px) 50vw, 100vw"
         alt="Leopard"
         loading="lazy"
         class="aspect-[4/5] h-full w-full object-cover sm:aspect-[4/3] lg:aspect-[4/5]"
