@@ -6,11 +6,24 @@ import { withBase } from "../lib/withBase";
 import { faqCategories } from "../data/faq";
 
 const contactHref = `${withBase("/")}#contact`;
+
+const faqPage = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqCategories.flatMap((category) =>
+    category.items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    }))
+  ),
+};
 ---
 
 <Base
-  title="FAQ — Bengo Tours Uganda"
+  title="Uganda Car Rental & Gorilla Permit FAQ | Bengo Tours"
   description="Answers to common questions about booking tours, renting a car with or without a driver, gorilla and chimpanzee permits, and traveling in Uganda."
+  jsonLd={faqPage}
 >
   <Header />
   <main>

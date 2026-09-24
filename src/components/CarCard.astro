@@ -21,7 +21,7 @@ const hasGallery = car.images.length > 1;
   >
     <img
       src={withBase(car.images[0])}
-      alt={car.model}
+      alt={`${car.model} rental car in Uganda`}
       loading="lazy"
       class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
     />
@@ -157,10 +157,10 @@ const hasGallery = car.images.length > 1;
         class="car-gallery-track flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {
-          car.images.map((src) => (
+          car.images.map((src, index) => (
             <img
               src={withBase(src)}
-              alt={car.model}
+              alt={`${car.model}, photo ${index + 1} of ${car.images.length}`}
               loading="lazy"
               class="aspect-[4/3] w-full shrink-0 snap-center object-cover sm:aspect-[16/10]"
             />

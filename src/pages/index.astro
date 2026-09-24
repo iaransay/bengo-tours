@@ -10,11 +10,36 @@ import About from "../components/About.astro";
 import Testimonials from "../components/Testimonials.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
+import { withBase } from "../lib/withBase";
+
+const siteUrl = new URL(withBase("/"), Astro.site).href;
+
+const travelAgency = {
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "@id": `${siteUrl}#organization`,
+  name: "Bengo Tours and Travels",
+  alternateName: "Bengo Tours Uganda",
+  url: siteUrl,
+  logo: new URL(withBase("/logo.png"), Astro.site).href,
+  image: new URL(withBase("/cars/safari-land-cruiser.jpg"), Astro.site).href,
+  description:
+    "Car rental with or without a driver, safari vehicles and Uganda Wildlife Authority gorilla and chimpanzee permits, based in Kampala, Uganda.",
+  telephone: "+256756659419",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Kampala",
+    addressCountry: "UG",
+  },
+  areaServed: { "@type": "Country", name: "Uganda" },
+  priceRange: "$$",
+};
 ---
 
 <Base
-  title="Bengo Tours Uganda — Car Rental, Driver, Permits, Uganda"
-  description="Hand-crafted tours, unforgettable trips and a modern rental fleet. Travel further with Terraventura."
+  title="Car Rental & Gorilla Permits in Uganda | Bengo Tours"
+  description="Rent a 4x4 in Uganda with or without a driver, and book gorilla and chimpanzee permits through Bengo Tours, based in Kampala. Message us on WhatsApp for a quote."
+  jsonLd={travelAgency}
 >
   <Header />
   <main>
