@@ -2,8 +2,8 @@
 const stats = [
   { value: "12+", label: "Years on the road" },
   { value: "18k", label: "Happy travelers" },
-  { value: "40+", label: "Destinations" },
-  { value: "4.9", label: "Average rating" },
+  // { value: "40+", label: "Destinations" },
+  // { value: "4.9", label: "Average rating" },
 ];
 ---
 
@@ -35,11 +35,11 @@ const stats = [
         Every itinerary is scouted in person, every car serviced by our own
         team, and every guest treated like a friend joining the trip.
       </p>
-      <dl class="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-4">
+      <dl class="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-2">
         {
           stats.map((stat) => (
             <div>
-              <dt class="font-display text-4xl font-semibold text-brand-400">
+              <dt class="font-display text-6xl font-semibold text-brand-400">
                 {stat.value}
               </dt>
               <dd class="mt-1 text-sm text-white/60">{stat.label}</dd>
