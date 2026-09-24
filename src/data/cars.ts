@@ -43,6 +43,7 @@ export const cars: Car[] = [
       "/cars/land-cruiser-j70-2.jpg",
       "/cars/land-cruiser-j70-3.jpg",
       "/cars/land-cruiser-j70-4.jpg",
+      "/cars/land-cruiser-j70-5.jpg",
     ],
     category: "Economy",
     seats: 4,
