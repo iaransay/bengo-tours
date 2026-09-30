@@ -1,3 +1,5 @@
+import { eyeIcon, sparkleIcon, type DuotoneIcon } from "../lib/icons";
+
 export interface PermitOption {
   name: string;
   /** Leave out when the current UWA rate hasn't been confirmed. */
@@ -18,7 +20,7 @@ export interface Permit {
   price: number;
   duration: string;
   blurb: string;
-  icon: string;
+  icon: DuotoneIcon;
   options: PermitOption[];
   facts: { label: string; value: string }[];
   sections: { title: string; body: string[] }[];
@@ -39,7 +41,7 @@ export const permits: Permit[] = [
     duration: "1–4 hours with the family",
     blurb:
       "Hike through the forest with UWA rangers to spend time beside a habituated mountain gorilla family. Standard treks and longer habituation experiences are both available — we match the right one to your dates.",
-    icon: "M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z",
+    icon: eyeIcon,
     options: [
       {
         name: "Gorilla trekking",
@@ -112,7 +114,7 @@ export const permits: Permit[] = [
     duration: "1–4 hours with the family",
     blurb:
       "Kibale holds the densest primate population in East Africa. Standard tracking and full-day habituation experiences both run from Kanyanchu.",
-    icon: "M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z",
+    icon: eyeIcon,
     options: [
       {
         name: "Chimpanzee tracking",
@@ -169,7 +171,7 @@ export const permits: Permit[] = [
     duration: "1 hour with the family",
     blurb:
       "Bright, fast and endemic to the Virunga bamboo belt. The easiest primate permit to add to a Mgahinga gorilla day.",
-    icon: "M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z",
+    icon: sparkleIcon,
     options: [
       {
         name: "Golden monkey tracking",
