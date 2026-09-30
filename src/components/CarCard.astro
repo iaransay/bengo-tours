@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import type { Car } from "../data/cars";
+import { carPath, formatDailyRate, type Car } from "../data/cars";
+import { withBase } from "../lib/withBase";
 
 interface Props {
   car: Car;
@@ -8,6 +9,9 @@ interface Props {
 
 const { car } = Astro.props;
 const hasGallery = car.images.length > 1;
+const detailsHref = withBase(carPath(car));
+const selfDriveRate = formatDailyRate(car.pricePerDay);
+const driverRate = formatDailyRate(car.pricePerDayWithDriver);
 ---
 
 <article
@@ -59,7 +63,9 @@ const hasGallery = car.images.length > 1;
   </button>
   <div class="p-6">
     <h3 class="font-display text-xl font-semibold text-stone-900">
-      {car.model}
+      <a href={detailsHref} class="transition hover:text-brand-600">
+        {car.model}
+      </a>
     </h3>
     <ul class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-stone-600">
       <li class="flex items-center gap-1.5">
@@ -117,20 +123,49 @@ const hasGallery = car.images.length > 1;
     </ul>
     <div class="mt-5 flex items-end justify-between border-t border-stone-100 pt-5">
       <div>
-        <p class="text-sm text-stone-500">
-          <span class="text-lg font-bold text-stone-900">${car.pricePerDay}</span>
-          /day self-drive
-        </p>
-        <p class="mt-0.5 text-xs text-stone-500">
-          ${car.pricePerDayWithDriver}/day with driver
-        </p>
+        {
+          selfDriveRate || driverRate ? (
+            <>
+              {selfDriveRate && (
+                <p class="text-sm text-stone-500">
+                  <span class="text-lg font-bold text-stone-900">
+                    {selfDriveRate}
+                  </span>
+                  /day self-drive
+                </p>
+              )}
+              {driverRate && (
+                <p class="mt-0.5 text-xs text-stone-500">
+                  {driverRate}/day with driver
+                </p>
+              )}
+            </>
+          ) : (
+            <>
+              <p class="text-sm font-semibold text-stone-900">
+                Rates on request
+              </p>
+              <p class="mt-0.5 text-xs text-stone-500">
+                Self-drive or with driver
+              </p>
+            </>
+          )
+        }
       </div>
-      <a
-        href="#contact"
-        class="rounded-full bg-stone-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-600"
-      >
-        Reserve
-      </a>
+      <div class="flex items-center gap-4">
+        <a
+          href={detailsHref}
+          class="text-sm font-semibold text-stone-600 transition hover:text-brand-600"
+        >
+          Details
+        </a>
+        <a
+          href="#contact"
+          class="rounded-full bg-stone-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-600"
+        >
+          Reserve
+        </a>
+      </div>
     </div>
   </div>
 
@@ -219,3 +254,60 @@ const hasGallery = car.images.length > 1;
     </p>
   </dialog>
 </article>
+
+<script>
+  const findDialog = (el: HTMLElement) =>
+    el.closest("article")?.querySelector<HTMLDialogElement>(
+      ".car-gallery-dialog"
+    );
+
+  const scrollToSlide = (track: HTMLElement, direction: -1 | 1) => {
+    const slideWidth =
+      track.firstElementChild instanceof HTMLElement
+        ? track.firstElementChild.offsetWidth
+        : 0;
+    track.scrollBy({ left: direction * slideWidth, behavior: "smooth" });
+  };
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+
+    const trigger = target.closest<HTMLElement>(".car-gallery-trigger");
+    if (trigger) {
+      findDialog(trigger)?.showModal();
+      return;
+    }
+
+    const closeButton = target.closest<HTMLElement>(".car-gallery-close");
+    if (closeButton) {
+      closeButton.closest("dialog")?.close();
+      return;
+    }
+
+    const dialog = target.closest<HTMLDialogElement>(".car-gallery-dialog");
+    if (dialog && target === dialog) {
+      dialog.close();
+      return;
+    }
+
+    const prevButton = target.closest<HTMLElement>(".car-gallery-prev");
+    const nextButton = target.closest<HTMLElement>(".car-gallery-next");
+    if (!prevButton && !nextButton) return;
+
+    const track = target
+      .closest(".car-gallery-dialog")
+      ?.querySelector<HTMLElement>(".car-gallery-track");
+    if (track) scrollToSlide(track, prevButton ? -1 : 1);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const openDialog = document.querySelector<HTMLDialogElement>(
+      ".car-gallery-dialog[open]"
+    );
+    if (!openDialog || (event.key !== "ArrowLeft" && event.key !== "ArrowRight"))
+      return;
+
+    const track = openDialog.querySelector<HTMLElement>(".car-gallery-track");
+    if (track) scrollToSlide(track, event.key === "ArrowLeft" ? -1 : 1);
+  });
+</script>

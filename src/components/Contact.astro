@@ -147,7 +147,7 @@ const contactChannels = [
 </section>
 
 <script>
-  const WHATSAPP_NUMBER = "256756659419";
+  import { whatsappLink } from "../lib/contact";
 
   const form = document.getElementById("contact-form");
   const confirmation = document.getElementById("contact-confirmation");
@@ -173,8 +173,7 @@ const contactChannels = [
     if (dates) lines.push(`Travel dates: ${dates}`);
     if (message) lines.push("", message);
 
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
-    window.open(whatsappUrl, "_blank");
+    window.open(whatsappLink(lines.join("\n")), "_blank");
 
     confirmation?.classList.remove("hidden");
     form.reset();
