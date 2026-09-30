@@ -1,6 +1,6 @@
 ---
 const heroPhoto =
-  "https://images.unsplash.com/photo-1674909073723-e74e82810733?auto=format&fit=crop&q=75";
+  "https://images.unsplash.com/photo-1674909073723-e74e82810733?auto=format&fit=crop&q=75&flip=h";
 const heroSrcset = [640, 960, 1280, 1600, 2000]
   .map((width) => `${heroPhoto}&w=${width} ${width}w`)
   .join(", ");
@@ -23,15 +23,17 @@ const heroSrcset = [640, 960, 1280, 1600, 2000]
     <p
       class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-brand-300"
     >
-      Car rental · Driver · UWA Permit request
+      Car rental · Tours · Gorilla Permits
     </p>
     <h1
       class="max-w-3xl font-display text-5xl font-semibold leading-tight text-white sm:text-6xl lg:text-7xl"
     >
+    <!-- We take you everywhere -->
       Travel further<br />Wander wilder
     </h1>
     <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
-      From the deep jungle to the infinite savanah, we take care of everything except memories
+      From the mist of gorilla forests to the endless gold of the savanna,
+      we take care of everything except memories.
     </p>
     <div class="mt-10 flex flex-wrap gap-4">
       <a
