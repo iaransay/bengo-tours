@@ -1,0 +1,125 @@
+---
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import PermitBookingSteps from "../../components/PermitBookingSteps.astro";
+import Contact from "../../components/Contact.astro";
+import Footer from "../../components/Footer.astro";
+import Icon from "../../components/Icon.astro";
+import { permitPath, permitRatesNote, permits } from "../../data/permits";
+import { breadcrumbJsonLd, type Crumb } from "../../lib/breadcrumbs";
+import { withBase } from "../../lib/withBase";
+
+const crumbs: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Permits", path: "/permits/" },
+];
+---
+
+<Base
+  title="Gorilla & Chimpanzee Permits in Uganda | Bengo Tours"
+  description="Uganda Wildlife Authority permits for gorilla trekking, chimpanzee tracking and golden monkeys. We check availability, book in your name and plan the drive."
+  jsonLd={breadcrumbJsonLd(crumbs, Astro.site)}
+>
+  <Header />
+  <main>
+    <PageHeader
+      eyebrow="Permits"
+      title="Gorilla & chimpanzee permits in Uganda"
+      crumbs={crumbs}
+    >
+      Gorillas, chimpanzees and golden monkeys can only be tracked with a
+      permit issued by the Uganda Wildlife Authority. We secure yours, put it
+      in your name, and build the driving days around it.
+    </PageHeader>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-8 lg:grid-cols-3">
+          {
+            permits.map((permit) => (
+              <a
+                href={withBase(permitPath(permit))}
+                class="reveal group flex flex-col rounded-3xl bg-stone-50 p-8 ring-1 ring-stone-200 transition hover:shadow-xl"
+              >
+                <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
+                  <Icon icon={permit.icon} class="h-6 w-6" />
+                </span>
+                <h2 class="mt-6 font-display text-2xl font-semibold text-stone-900">
+                  {permit.pageTitle}
+                </h2>
+                <p class="mt-1 text-sm font-semibold text-stone-500">
+                  {permit.park}
+                </p>
+                <p class="mt-4 flex-1 leading-relaxed text-stone-600">
+                  {permit.blurb}
+                </p>
+                <div class="mt-6 flex items-center justify-between border-t border-stone-200 pt-6">
+                  <p class="text-lg font-bold text-stone-900">
+                    From ${permit.price.toLocaleString("en-US")}
+                    <span class="ml-1 text-sm font-normal text-stone-500">
+                      / person
+                    </span>
+                  </p>
+                  <span class="text-sm font-semibold text-brand-600 transition group-hover:text-brand-500">
+                    Read the guide →
+                  </span>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+        <p class="reveal mt-8 max-w-3xl text-sm leading-relaxed text-stone-500">
+          {permitRatesNote}
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-stone-50 py-20">
+      <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2">
+        <div class="reveal">
+          <h2 class="font-display text-3xl font-semibold text-stone-900">
+            When to book
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-stone-600">
+            Gorilla permits are the first part of a Uganda trip to sell out.
+            In the drier peak seasons, June–September and December–February,
+            they go months ahead, so book them as early as you can and plan the
+            rest of the trip around the date you get.
+          </p>
+          <p class="mt-4 text-lg leading-relaxed text-stone-600">
+            Chimpanzee and golden monkey permits usually have more
+            availability, but it's worth booking them at the same time so the
+            dates line up with your gorilla trek and your drive.
+          </p>
+        </div>
+        <div class="reveal">
+          <h2 class="font-display text-3xl font-semibold text-stone-900">
+            Getting to the parks
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-stone-600">
+            Bwindi and Mgahinga are a long day's drive southwest of Kampala,
+            with steep murram roads at the end, so a 4x4 is the safe choice.
+            Kibale is mostly tarmac from Kampala. We can pair any permit with
+            one of our cars, self-drive or with a driver.
+          </p>
+          <a
+            href={withBase("/car-rental/")}
+            class="mt-6 inline-flex text-sm font-semibold text-brand-600 transition hover:text-brand-500"
+          >
+            See the car rental fleet →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <PermitBookingSteps />
+      </div>
+    </section>
+
+    <Contact />
+  </main>
+  <Footer />
+</Base>

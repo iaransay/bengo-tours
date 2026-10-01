@@ -1,0 +1,48 @@
+---
+import type { Crumb } from "../lib/breadcrumbs";
+import { withBase } from "../lib/withBase";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  crumbs: Crumb[];
+}
+
+const { eyebrow, title, crumbs } = Astro.props;
+---
+
+<section class="bg-stone-950 pb-20 pt-40 text-white">
+  <div class="mx-auto max-w-7xl px-6">
+    <nav aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2 text-sm text-white/50">
+        {
+          crumbs.map((crumb, index) => (
+            <li class="flex items-center gap-2">
+              {index > 0 && <span aria-hidden="true">/</span>}
+              {index < crumbs.length - 1 ? (
+                <a href={withBase(crumb.path)} class="transition hover:text-white">
+                  {crumb.name}
+                </a>
+              ) : (
+                <span aria-current="page" class="text-white/80">
+                  {crumb.name}
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+    <p
+      class="mt-8 text-sm font-semibold uppercase tracking-[0.25em] text-brand-400"
+    >
+      {eyebrow}
+    </p>
+    <h1 class="mt-3 max-w-3xl font-display text-4xl font-semibold sm:text-5xl">
+      {title}
+    </h1>
+    <div class="mt-4 max-w-2xl text-lg leading-relaxed text-white/70">
+      <slot />
+    </div>
+  </div>
+</section>

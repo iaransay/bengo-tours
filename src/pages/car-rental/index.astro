@@ -1,0 +1,173 @@
+---
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import CarCard from "../../components/CarCard.astro";
+import Contact from "../../components/Contact.astro";
+import Footer from "../../components/Footer.astro";
+import { carPath, cars, findCar } from "../../data/cars";
+import { breadcrumbJsonLd, type Crumb } from "../../lib/breadcrumbs";
+import { withBase } from "../../lib/withBase";
+
+const crumbs: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Car rental", path: "/car-rental/" },
+];
+
+const selfDriveRequirements = [
+  "A valid driving licence held for at least one year",
+  "A passport or national ID",
+  "An International Driving Permit or a Uganda-issued temporary permit, which we can help arrange",
+  "A refundable security deposit at pickup",
+];
+
+const routes = [
+  {
+    title: "City, airport and tarmac trips",
+    text: "Kampala, Entebbe, Jinja and the paved road west to Fort Portal and Kibale. A comfortable minivan is all you need.",
+    cars: ["toyota-noah", "toyota-hiace"],
+  },
+  {
+    title: "Gorilla trekking in the southwest",
+    text: "Bwindi, Mgahinga and Lake Bunyonyi. The last stretch is steep murram that turns to mud after rain, so take a 4x4.",
+    cars: ["toyota-land-cruiser-prado", "safari-land-cruiser"],
+  },
+  {
+    title: "Game drives in the national parks",
+    text: "Queen Elizabeth, Murchison Falls and beyond. A pop-up roof lets everyone stand up for a clear view of the wildlife.",
+    cars: ["safari-land-cruiser", "toyota-land-cruiser-j70"],
+  },
+].map((route) => ({ ...route, cars: route.cars.map(findCar) }));
+---
+
+<Base
+  title="Self-Drive Car Rental in Uganda | Bengo Tours"
+  description="Rent a 4x4, safari Land Cruiser or minivan in Kampala, self-drive or with one of our drivers. See the fleet, the requirements and which car suits your route."
+  jsonLd={breadcrumbJsonLd(crumbs, Astro.site)}
+>
+  <Header />
+  <main>
+    <PageHeader
+      eyebrow="Car rental"
+      title="Car rental in Uganda, self-drive or with a driver"
+      crumbs={crumbs}
+    >
+      4x4s built for Uganda's roads and minivans for the group, collected in
+      Kampala. Drive yourself, or hire one of our drivers and leave the
+      navigating to us.
+    </PageHeader>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <h2 class="reveal font-display text-3xl font-semibold text-stone-900">
+          The fleet
+        </h2>
+        <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {cars.map((car) => <CarCard car={car} />)}
+        </div>
+      </div>
+    </section>
+
+    <section id="self-drive" class="bg-stone-50 py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <h2 class="reveal font-display text-3xl font-semibold text-stone-900">
+          Self-drive or with a driver?
+        </h2>
+        <div class="mt-10 grid gap-8 lg:grid-cols-2">
+          <div class="reveal rounded-3xl bg-white p-8 ring-1 ring-stone-200 sm:p-10">
+            <h3 class="font-display text-2xl font-semibold text-stone-900">
+              Self-drive
+            </h3>
+            <p class="mt-3 leading-relaxed text-stone-600">
+              Set your own pace and stop wherever you like. To drive yourself
+              you'll need:
+            </p>
+            <ul class="mt-5 space-y-3">
+              {
+                selfDriveRequirements.map((requirement) => (
+                  <li class="flex gap-3 text-stone-700">
+                    <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                    {requirement}
+                  </li>
+                ))
+              }
+            </ul>
+            <p class="mt-5 text-sm leading-relaxed text-stone-500">
+              Cars are rented full-to-full: you collect the car with a full
+              tank and return it the same way.
+            </p>
+          </div>
+          <div class="reveal rounded-3xl bg-white p-8 ring-1 ring-stone-200 sm:p-10">
+            <h3 class="font-display text-2xl font-semibold text-stone-900">
+              With a driver
+            </h3>
+            <p class="mt-3 leading-relaxed text-stone-600">
+              One of our drivers takes the wheel while you watch the scenery.
+              It's the easiest way to do a long circuit: no navigating
+              unfamiliar roads, no guessing how long the murram stretch to the
+              park gate will take, and more time looking out of the window.
+            </p>
+            <p class="mt-4 leading-relaxed text-stone-600">
+              Every car in the fleet can be hired with a driver, and the
+              booking works the same way. Send us your dates and route, and
+              we'll confirm the car and the price.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <h2 class="reveal font-display text-3xl font-semibold text-stone-900">
+          Which car for which trip?
+        </h2>
+        <div class="mt-10 grid gap-8 lg:grid-cols-3">
+          {
+            routes.map((route) => (
+              <div class="reveal rounded-3xl bg-stone-50 p-8 ring-1 ring-stone-200">
+                <h3 class="font-display text-xl font-semibold text-stone-900">
+                  {route.title}
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-stone-600">
+                  {route.text}
+                </p>
+                <ul class="mt-5 space-y-2">
+                  {route.cars.map((car) => (
+                    <li>
+                      <a
+                        href={withBase(carPath(car))}
+                        class="text-sm font-semibold text-brand-600 transition hover:text-brand-500"
+                      >
+                        {car.model} →
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+        <p class="reveal mt-10 text-stone-600">
+          Questions about fuel, deposits or cancellations? See the{" "}
+          <a
+            href={withBase("/faq/")}
+            class="font-semibold text-brand-600 underline underline-offset-4 hover:text-brand-500"
+          >
+            FAQ
+          </a>{" "}
+          and our{" "}
+          <a
+            href={withBase("/terms/")}
+            class="font-semibold text-brand-600 underline underline-offset-4 hover:text-brand-500"
+          >
+            booking terms
+          </a>.
+        </p>
+      </div>
+    </section>
+
+    <Contact />
+  </main>
+  <Footer />
+</Base>

@@ -1,0 +1,205 @@
+---
+import type { GetStaticPaths } from "astro";
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import PermitBookingSteps from "../../components/PermitBookingSteps.astro";
+import WhatsAppButton from "../../components/WhatsAppButton.astro";
+import Contact from "../../components/Contact.astro";
+import Footer from "../../components/Footer.astro";
+import { carPath, findCar } from "../../data/cars";
+import {
+  permitPath,
+  permitRatesNote,
+  permits,
+  type Permit,
+} from "../../data/permits";
+import { breadcrumbJsonLd, type Crumb } from "../../lib/breadcrumbs";
+import { withBase } from "../../lib/withBase";
+
+export const getStaticPaths = (() =>
+  permits.map((permit) => ({
+    params: { slug: permit.slug },
+    props: { permit },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  permit: Permit;
+}
+
+const { permit } = Astro.props;
+const recommendedCars = permit.recommendedCars.map(findCar);
+const otherPermits = permits.filter((other) => other.slug !== permit.slug);
+
+const crumbs: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Permits", path: "/permits/" },
+  { name: permit.name, path: permitPath(permit) },
+];
+---
+
+<Base
+  title={permit.metaTitle}
+  description={permit.summary}
+  jsonLd={breadcrumbJsonLd(crumbs, Astro.site)}
+>
+  <Header />
+  <main>
+    <PageHeader
+      eyebrow={`Permits · ${permit.park}`}
+      title={permit.pageTitle}
+      crumbs={crumbs}
+    >
+      {permit.blurb}
+    </PageHeader>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <h2 class="reveal font-display text-3xl font-semibold text-stone-900">
+          Permit options
+        </h2>
+        <div class="mt-10 grid gap-8 md:grid-cols-2">
+          {
+            permit.options.map((option) => (
+              <div class="reveal flex flex-col rounded-3xl bg-stone-50 p-8 ring-1 ring-stone-200">
+                <h3 class="font-display text-xl font-semibold text-stone-900">
+                  {option.name}
+                </h3>
+                <p class="mt-1 text-xs font-medium uppercase tracking-wide text-stone-400">
+                  {option.duration}
+                </p>
+                <p class="mt-4 flex-1 leading-relaxed text-stone-600">
+                  {option.text}
+                </p>
+                <p class="mt-6 border-t border-stone-200 pt-6 text-xl font-bold text-stone-900">
+                  {option.price ? (
+                    <>
+                      ${option.price.toLocaleString("en-US")}
+                      <span class="ml-1 text-sm font-normal text-stone-500">
+                        / person
+                      </span>
+                    </>
+                  ) : (
+                    <span class="text-base">Rate on request</span>
+                  )}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+        <p class="reveal mt-8 max-w-3xl text-sm leading-relaxed text-stone-500">
+          {permitRatesNote}
+        </p>
+        <WhatsAppButton
+          message={`Hi Bengo Tours, I'd like to request a ${permit.name.toLowerCase()}. My dates are: `}
+          label="Request on WhatsApp"
+          class="reveal mt-8"
+        />
+      </div>
+    </section>
+
+    <section class="bg-stone-50 py-20">
+      <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-3">
+        <aside class="reveal lg:order-last">
+          <div class="rounded-3xl bg-white p-8 ring-1 ring-stone-200">
+            <h2 class="font-display text-2xl font-semibold text-stone-900">
+              Key facts
+            </h2>
+            <dl class="mt-6 space-y-4 text-sm">
+              {
+                permit.facts.map((fact) => (
+                  <div>
+                    <dt class="text-stone-500">{fact.label}</dt>
+                    <dd class="mt-0.5 font-semibold text-stone-900">
+                      {fact.value}
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+        </aside>
+        <div class="space-y-12 lg:col-span-2">
+          {
+            permit.sections.map((section) => (
+              <div class="reveal">
+                <h2 class="font-display text-3xl font-semibold text-stone-900">
+                  {section.title}
+                </h2>
+                <div class="mt-4 space-y-4">
+                  {section.body.map((paragraph) => (
+                    <p class="text-lg leading-relaxed text-stone-600">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <h2 class="reveal font-display text-3xl font-semibold text-stone-900">
+          Recommended cars for this trip
+        </h2>
+        <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            recommendedCars.map((car) => (
+              <a
+                href={withBase(carPath(car))}
+                class="reveal group overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200 transition hover:shadow-xl"
+              >
+                <Image
+                  src={car.images[0]}
+                  alt={`${car.model} rental car in Uganda`}
+                  widths={[400, 640, 800]}
+                  sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                  class="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div class="p-5">
+                  <p class="font-display text-lg font-semibold text-stone-900">
+                    {car.model}
+                  </p>
+                  <p class="mt-1 text-sm text-stone-500">
+                    {car.seats} seats · {car.transmission}
+                  </p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+
+        <div class="mt-20">
+          <PermitBookingSteps />
+        </div>
+
+        <div class="reveal mt-16">
+          <h2 class="font-display text-2xl font-semibold text-stone-900">
+            Other permits
+          </h2>
+          <ul class="mt-4 flex flex-wrap gap-x-8 gap-y-3">
+            {
+              otherPermits.map((other) => (
+                <li>
+                  <a
+                    href={withBase(permitPath(other))}
+                    class="font-semibold text-brand-600 transition hover:text-brand-500"
+                  >
+                    {other.pageTitle} →
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <Contact />
+  </main>
+  <Footer />
+</Base>

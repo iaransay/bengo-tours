@@ -1,0 +1,15 @@
+---
+import type { DuotoneIcon } from "../lib/icons";
+
+interface Props {
+  icon: DuotoneIcon;
+  class?: string;
+}
+
+const { icon, class: className } = Astro.props;
+---
+
+<svg class={className} viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+  <path d={icon.secondary} opacity="0.35" />
+  <path d={icon.primary} />
+</svg>

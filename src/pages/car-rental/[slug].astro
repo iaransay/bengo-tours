@@ -1,0 +1,215 @@
+---
+import type { GetStaticPaths } from "astro";
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import WhatsAppButton from "../../components/WhatsAppButton.astro";
+import Contact from "../../components/Contact.astro";
+import Footer from "../../components/Footer.astro";
+import { carPath, cars, formatDailyRate, type Car } from "../../data/cars";
+import { breadcrumbJsonLd, type Crumb } from "../../lib/breadcrumbs";
+import { withBase } from "../../lib/withBase";
+
+export const getStaticPaths = (() =>
+  cars.map((car) => ({ params: { slug: car.slug }, props: { car } }))) satisfies GetStaticPaths;
+
+interface Props {
+  car: Car;
+}
+
+const { car } = Astro.props;
+const [coverPhoto, ...morePhotos] = car.images;
+const otherCars = cars.filter((other) => other.slug !== car.slug);
+
+const crumbs: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Car rental", path: "/car-rental/" },
+  { name: car.model, path: carPath(car) },
+];
+
+const specs = [
+  { label: "Category", value: car.category },
+  { label: "Seats", value: String(car.seats) },
+  { label: "Transmission", value: car.transmission },
+  { label: "Luggage", value: `${car.luggage} bags` },
+  {
+    label: "Self-drive",
+    value: formatDailyRate(car.pricePerDay)?.concat(" / day") ?? "On request",
+  },
+  {
+    label: "With driver",
+    value:
+      formatDailyRate(car.pricePerDayWithDriver)?.concat(" / day") ??
+      "On request",
+  },
+];
+---
+
+<Base
+  title={`${car.model} Hire in Uganda | Bengo Tours`}
+  description={car.summary}
+  image={coverPhoto}
+  jsonLd={breadcrumbJsonLd(crumbs, Astro.site)}
+>
+  <Header />
+  <main>
+    <PageHeader
+      eyebrow={`Car rental · ${car.category}`}
+      title={`${car.model} hire in Uganda`}
+      crumbs={crumbs}
+    >
+      {car.summary}
+    </PageHeader>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-3">
+        <div class="space-y-4 lg:col-span-2">
+          <Image
+            src={coverPhoto}
+            alt={`${car.model} rental car in Uganda`}
+            widths={[640, 960, 1280, 1600]}
+            sizes="(min-width: 1280px) 830px, (min-width: 1024px) 66vw, 100vw"
+            loading="eager"
+            class="aspect-[16/10] w-full rounded-3xl object-cover"
+          />
+          {
+            morePhotos.length > 0 && (
+              <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                {morePhotos.map((photo, index) => (
+                  <Image
+                    src={photo}
+                    alt={`${car.model}, photo ${index + 2} of ${car.images.length}`}
+                    widths={[320, 480, 640]}
+                    sizes="(min-width: 1024px) 270px, (min-width: 640px) 33vw, 50vw"
+                    class="aspect-[4/3] w-full rounded-2xl object-cover"
+                  />
+                ))}
+              </div>
+            )
+          }
+        </div>
+
+        <aside class="lg:sticky lg:top-28 lg:self-start">
+          <div class="rounded-3xl bg-stone-50 p-8 ring-1 ring-stone-200">
+            <h2 class="font-display text-2xl font-semibold text-stone-900">
+              At a glance
+            </h2>
+            <dl class="mt-6 divide-y divide-stone-200 text-sm">
+              {
+                specs.map((spec) => (
+                  <div class="flex justify-between gap-4 py-3">
+                    <dt class="text-stone-500">{spec.label}</dt>
+                    <dd class="text-right font-semibold text-stone-900">
+                      {spec.value}
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+            <WhatsAppButton
+              message={`Hi Bengo Tours, I'd like to rent the ${car.model}. My dates are: `}
+              label="Reserve on WhatsApp"
+              class="mt-8 w-full"
+            />
+            <a
+              href="#contact"
+              class="mt-4 block text-center text-sm font-semibold text-stone-600 transition hover:text-brand-600"
+            >
+              Or use the contact form
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="bg-stone-50 py-20">
+      <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-3">
+        <div class="reveal lg:col-span-2">
+          <h2 class="font-display text-3xl font-semibold text-stone-900">
+            About the {car.model}
+          </h2>
+          <div class="mt-6 space-y-4">
+            {
+              car.description.map((paragraph) => (
+                <p class="text-lg leading-relaxed text-stone-600">{paragraph}</p>
+              ))
+            }
+          </div>
+          <p class="mt-6 leading-relaxed text-stone-600">
+            Driving yourself? Check the{" "}
+            <a
+              href={`${withBase("/car-rental/")}#self-drive`}
+              class="font-semibold text-brand-600 underline underline-offset-4 hover:text-brand-500"
+            >
+              self-drive requirements
+            </a>{" "}
+            before you book.
+          </p>
+        </div>
+        <div class="reveal">
+          <h2 class="font-display text-2xl font-semibold text-stone-900">
+            Best for
+          </h2>
+          <ul class="mt-6 space-y-3">
+            {
+              car.bestFor.map((use) => (
+                <li class="flex gap-3 text-stone-700">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                  {use}
+                </li>
+              ))
+            }
+          </ul>
+          <p class="mt-8 text-sm leading-relaxed text-stone-500">
+            Heading to the gorillas or chimpanzees? We also arrange{" "}
+            <a
+              href={withBase("/permits/")}
+              class="font-semibold text-brand-600 hover:text-brand-500"
+            >
+              Uganda Wildlife Authority permits
+            </a>{" "}
+            and plan the drive around them.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <h2 class="reveal font-display text-3xl font-semibold text-stone-900">
+          Other cars in the fleet
+        </h2>
+        <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            otherCars.map((other) => (
+              <a
+                href={withBase(carPath(other))}
+                class="reveal group overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200 transition hover:shadow-xl"
+              >
+                <Image
+                  src={other.images[0]}
+                  alt={`${other.model} rental car in Uganda`}
+                  widths={[320, 480, 640]}
+                  sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw"
+                  class="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div class="p-5">
+                  <p class="font-display text-lg font-semibold text-stone-900">
+                    {other.model}
+                  </p>
+                  <p class="mt-1 text-sm text-stone-500">
+                    {other.seats} seats · {other.transmission}
+                  </p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <Contact />
+  </main>
+  <Footer />
+</Base>

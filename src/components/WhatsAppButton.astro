@@ -1,0 +1,26 @@
+---
+import { whatsappLink } from "../lib/contact";
+
+interface Props {
+  message: string;
+  label?: string;
+  class?: string;
+}
+
+const { message, label = "Book on WhatsApp", class: className } = Astro.props;
+---
+
+<a
+  href={whatsappLink(message)}
+  target="_blank"
+  rel="noopener"
+  class:list={[
+    "inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-brand-900/20 transition hover:bg-brand-500",
+    className,
+  ]}
+>
+  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.09c-.24.68-1.4 1.3-1.93 1.36-.49.05-1.11.08-1.79-.11a15.6 15.6 0 0 1-1.69-.62c-2.98-1.29-4.92-4.29-5.07-4.49-.15-.2-1.22-1.62-1.22-3.1 0-1.47.77-2.19 1.05-2.49.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.19.01.43-.07.67.51.24.59.83 2.03.9 2.18.07.15.12.32.02.52-.09.2-.14.32-.28.49-.14.17-.29.38-.42.51-.14.14-.28.29-.12.57.15.28.68 1.13 1.47 1.83 1.01.9 1.87 1.19 2.14 1.33.28.14.44.12.6-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.63-.14.26.09 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.7-.17 1.38Z" />
+  </svg>
+  {label}
+</a>
