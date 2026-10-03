@@ -1,5 +1,6 @@
 ---
 import PermitBookingSteps from "./PermitBookingSteps.astro";
+import Icon from "./Icon.astro";
 import { permitPath, permitRatesNote, permits } from "../data/permits";
 import { withBase } from "../lib/withBase";
 ---
@@ -32,19 +33,7 @@ import { withBase } from "../lib/withBase";
           <div class="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:p-8">
             <div class="flex items-start gap-4">
               <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
-                <svg
-                  class="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.6"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d={permit.icon}
-                  />
-                </svg>
+                <Icon name={permit.icon} class="h-6 w-6" />
               </span>
               <div>
                 <div class="flex flex-wrap items-center gap-2">

@@ -1,15 +1,18 @@
 ---
-import type { DuotoneIcon } from "../lib/icons";
+import { icons } from "@iconify-json/tabler";
+import { getIconData, iconToSVG } from "@iconify/utils";
 
 interface Props {
-  icon: DuotoneIcon;
+  /** Tabler icon name, e.g. "map-pin". Browse them at https://tabler.io/icons */
+  name: string;
   class?: string;
 }
 
-const { icon, class: className } = Astro.props;
+const { name, class: className } = Astro.props;
+
+const data = getIconData(icons, name);
+if (!data) throw new Error(`Unknown Tabler icon: "${name}"`);
+const { attributes, body } = iconToSVG(data);
 ---
 
-<svg class={className} viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
-  <path d={icon.secondary} opacity="0.35" />
-  <path d={icon.primary} />
-</svg>
+<svg class={className} {...attributes} aria-hidden="true" set:html={body}></svg>

@@ -16,7 +16,7 @@ const links = [
 
 <header
   id="site-header"
-  class="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
+  class="fixed inset-x-0 top-0 z-50 bg-black transition-shadow duration-300"
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
     <a href={`${homeHref}#top`} class="relative z-10 flex items-center gap-3">
@@ -73,7 +73,7 @@ const links = [
   </div>
   <nav
     id="mobile-menu"
-    class="hidden flex-col gap-1 bg-stone-950/95 px-6 pb-6 pt-2 backdrop-blur md:hidden"
+    class="hidden flex-col gap-1 bg-black px-6 pb-6 pt-2 md:hidden"
   >
     {
       links.map((link) => (
@@ -101,8 +101,6 @@ const links = [
 
   const applyScrollState = () => {
     const scrolled = window.scrollY > 40;
-    header?.classList.toggle("bg-stone-950/85", scrolled);
-    header?.classList.toggle("backdrop-blur", scrolled);
     header?.classList.toggle("shadow-lg", scrolled);
   };
 
