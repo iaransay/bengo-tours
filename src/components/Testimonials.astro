@@ -2,19 +2,13 @@
 const testimonials = [
   {
     quote:
-      "The trip was amazing",
+      "Juma was more than just our driver. He shared so much of Uganda and its culture with us, and by the end of the trip he felt like a friend. We can't recommend Bengo Tours enough!",
     name: "Ignacio",
-    trip: "Spain",
-    avatar:
-      "https://images.unsplash.com/photo-1640960543409-dbe56ccc30e2?auto=format&fit=crop&w=96&h=96&q=75",
   },
   {
     quote:
       "This guy is great",
     name: "Emeline",
-    trip: "France",
-    avatar:
-      "https://images.unsplash.com/photo-1561664729-83f5ab9d8275?auto=format&fit=crop&w=96&h=96&q=75",
   },
 ];
 ---
@@ -81,7 +75,7 @@ const testimonials = [
     >
       {
         testimonials.map((item) => (
-          <figure class="reveal w-[85%] shrink-0 snap-start rounded-2xl bg-white p-8 shadow-sm ring-1 ring-stone-200 sm:w-[46%] lg:w-[31.5%]">
+          <figure class="reveal w-[85%] shrink-0 snap-start rounded-2xl bg-white p-8 shadow-sm ring-1 ring-stone-200 sm:w-[70%] lg:w-[48.5%]">
             <svg
               class="h-8 w-8 text-brand-300"
               fill="currentColor"
@@ -93,15 +87,14 @@ const testimonials = [
               {item.quote}
             </blockquote>
             <figcaption class="mt-6 flex items-center gap-3">
-              <img
-                src={item.avatar}
-                alt={item.name}
-                loading="lazy"
-                class="h-11 w-11 rounded-full object-cover"
-              />
+              <span
+                aria-hidden="true"
+                class="flex h-11 w-11 items-center justify-center rounded-full bg-brand-100 font-display text-lg font-semibold text-brand-700"
+              >
+                {item.name.charAt(0)}
+              </span>
               <div>
                 <p class="text-sm font-semibold text-stone-900">{item.name}</p>
-                <p class="text-xs text-stone-500">{item.trip}</p>
               </div>
             </figcaption>
           </figure>
