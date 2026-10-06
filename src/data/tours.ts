@@ -33,6 +33,8 @@ export interface Tour {
   includes: string[];
   /** Permit slug from src/data/permits.ts. */
   permit?: string;
+  /** Combo deals only: the tour slugs it combines, in the order they run. */
+  combines?: string[];
 }
 
 export const tours: Tour[] = [
@@ -209,22 +211,50 @@ export const tours: Tour[] = [
   },
 ];
 
-export interface ComboDeal {
-  title: string;
-  blurb: string;
-  /** Per person. */
-  price: number;
-  /** Tour slugs, in the order they run. */
-  tours: string[];
-}
+export type ComboDeal = Tour & Required<Pick<Tour, "combines" | "priceFrom">>;
 
+// Combo deals get their own tour page, but are promoted with <ComboDeal>
+// rather than listed alongside the single tours.
 export const comboDeals: ComboDeal[] = [
   {
+    slug: "5-days-murchison-falls-gorilla-trekking-safari",
+    name: "Murchison Falls & Gorillas Combo",
     title: "5 Days Murchison Falls & Gorilla Trekking Safari",
+    summary:
+      "Murchison Falls and gorilla trekking in one 5-day Uganda safari: a game drive and boat trip to the falls, then mountain gorillas in Bwindi. $1,680 per person.",
+    image: "https://images.unsplash.com/photo-1704183683740-1400a49816b7",
+    imageAlt: "Murchison Falls on the Nile in Uganda, with a rainbow in the spray",
+    tag: "Combo deal",
+    days: 5,
+    startsFrom: "Kampala",
+    priceFrom: 1680,
     blurb:
-      "Do both in one trip: two days at Murchison Falls, back through Kampala, then three days with the mountain gorillas of Bwindi.",
-    price: 1680,
-    tours: ["2-days-murchison-falls-safari-uganda", "3-day-gorilla-trekking-safari"],
+      "Do both in one trip: two days at Murchison Falls, then straight on to Bwindi for three days with the mountain gorillas.",
+    itinerary: [
+      {
+        title: "Kampala to Murchison Falls",
+        text: "Drive north from Kampala to Murchison Falls National Park, stopping at Ziwa Rhino Sanctuary on the way, then head out on an evening game drive. Overnight near the park.",
+      },
+      {
+        title: "Murchison Falls by boat and on foot",
+        text: "Take the morning boat trip up the Nile to the bottom of the falls and hike to the top to watch the river force its way through the gorge. In the afternoon, start the drive southwest towards Bwindi and overnight on the way.",
+      },
+      {
+        title: "On to Bwindi",
+        text: "Continue southwest through Uganda's western countryside to Bwindi Impenetrable Forest. Overnight in Bwindi.",
+      },
+      {
+        title: "Gorilla trekking and the Batwa community",
+        text: "After an early briefing with Uganda Wildlife Authority rangers, trek into the forest to find a habituated gorilla family and spend an hour with them. Later, join a Batwa community walk to learn about the forest's original inhabitants.",
+      },
+      {
+        title: "Bwindi to Kampala or Entebbe",
+        text: "Drive back to Kampala, or straight to Entebbe for your flight home.",
+      },
+    ],
+    includes: [],
+    permit: "gorilla-trekking",
+    combines: ["2-days-murchison-falls-safari-uganda", "3-day-gorilla-trekking-safari"],
   },
 ];
 
@@ -240,7 +270,7 @@ export function findTour(slug: string): Tour {
 }
 
 export function combosWith(tour: Tour): ComboDeal[] {
-  return comboDeals.filter((combo) => combo.tours.includes(tour.slug));
+  return comboDeals.filter((combo) => combo.combines.includes(tour.slug));
 }
 
 export function formatDays(days: number): string {

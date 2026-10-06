@@ -10,7 +10,9 @@ import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import { findPermit, permitPath } from "../data/permits";
 import {
+  comboDeals,
   combosWith,
+  findTour,
   formatDays,
   tourImage,
   tourImageSrcset,
@@ -23,7 +25,10 @@ import { breadcrumbJsonLd, type Crumb } from "../lib/breadcrumbs";
 import { withBase } from "../lib/withBase";
 
 export const getStaticPaths = (() =>
-  tours.map((tour) => ({ params: { slug: tour.slug }, props: { tour } }))) satisfies GetStaticPaths;
+  [...tours, ...comboDeals].map((tour) => ({
+    params: { slug: tour.slug },
+    props: { tour },
+  }))) satisfies GetStaticPaths;
 
 interface Props {
   tour: Tour;
@@ -32,7 +37,10 @@ interface Props {
 const { tour } = Astro.props;
 const permit = tour.permit ? findPermit(tour.permit) : undefined;
 const combos = combosWith(tour);
-const otherTours = tours.filter((other) => other.slug !== tour.slug);
+// A combo's page offers the tours it's made of instead of the full list.
+const otherTours =
+  tour.combines?.map(findTour) ??
+  tours.filter((other) => other.slug !== tour.slug);
 
 const crumbs: Crumb[] = [
   { name: "Home", path: "/" },
@@ -186,7 +194,7 @@ const facts = [
           ))
         }
         <h2 class="reveal font-display text-3xl font-semibold text-stone-900">
-          Other tours
+          {tour.combines ? "Or do them separately" : "Other tours"}
         </h2>
         <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {

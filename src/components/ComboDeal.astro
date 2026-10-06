@@ -16,16 +16,16 @@ interface Props {
 }
 
 const { combo, class: className } = Astro.props;
+const comboHref = withBase(tourPath(combo));
 
 // Label each leg with the days it covers, e.g. "Days 1–2", "Days 3–5".
 let firstDay = 1;
-const legs = combo.tours.map(findTour).map((tour) => {
+const legs = combo.combines.map(findTour).map((tour) => {
   const lastDay = firstDay + tour.days - 1;
   const days = tour.days === 1 ? `Day ${firstDay}` : `Days ${firstDay}–${lastDay}`;
   firstDay = lastDay + 1;
   return { tour, days };
 });
-const totalDays = firstDay - 1;
 ---
 
 <div
@@ -40,27 +40,35 @@ const totalDays = firstDay - 1;
     >
       Combo deal
     </span>
-    <h3 class="mt-4 font-display text-3xl font-semibold">{combo.title}</h3>
+    <h3 class="mt-4 font-display text-3xl font-semibold">
+      <a href={comboHref} class="transition hover:text-brand-300">
+        {combo.title}
+      </a>
+    </h3>
     <p class="mt-3 leading-relaxed text-white/70">{combo.blurb}</p>
     <p class="mt-6 text-3xl font-bold">
-      ${combo.price.toLocaleString("en-US")}
+      ${combo.priceFrom.toLocaleString("en-US")}
       <span class="ml-1 text-base font-normal text-white/60">
-        / person · {formatDays(totalDays)}
+        / person · {formatDays(combo.days)}
       </span>
     </p>
-    <WhatsAppButton
-      message={`Hi Bengo Tours, I'd like to book the ${combo.title} combo deal. My dates are: `}
-      label="Book the combo"
-      class="mt-6"
-    />
+    <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
+      <WhatsAppButton
+        message={`Hi Bengo Tours, I'd like to book the ${combo.name} (${formatDays(combo.days)}). My dates are: `}
+        label="Book the combo"
+      />
+      <a
+        href={comboHref}
+        class="text-sm font-semibold text-brand-300 transition hover:text-brand-200"
+      >
+        See the {formatDays(combo.days)} itinerary →
+      </a>
+    </div>
   </div>
-  <div class="grid gap-4 sm:grid-cols-2 lg:col-span-3">
+  <a href={comboHref} class="grid gap-4 sm:grid-cols-2 lg:col-span-3">
     {
       legs.map(({ tour, days }) => (
-        <a
-          href={withBase(tourPath(tour))}
-          class="group overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10"
-        >
+        <div class="group overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10">
           <div class="aspect-[16/10] overflow-hidden">
             <img
               src={tourImage(tour, 640)}
@@ -75,13 +83,10 @@ const totalDays = firstDay - 1;
             <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">
               {days}
             </p>
-            <p class="mt-1 font-display text-lg font-semibold">{tour.title}</p>
-            <p class="mt-3 text-sm font-semibold text-brand-300 transition group-hover:text-brand-200">
-              See the itinerary →
-            </p>
+            <p class="mt-1 font-display text-lg font-semibold">{tour.name}</p>
           </div>
-        </a>
+        </div>
       ))
     }
-  </div>
+  </a>
 </div>
