@@ -43,7 +43,7 @@ export const cars: Car[] = [
   // },
   {
     slug: "toyota-land-cruiser-prado",
-    model: "Toyota Land Cruiser Prado TZ",
+    model: "Toyota Land Cruiser Prado TX",
     summary:
       "A comfortable 4x4 for self-drive safaris and gorilla trips: five seats, a roof rack for extra bags and the ground clearance Uganda's murram roads call for.",
     bestFor: [
@@ -66,12 +66,12 @@ export const cars: Car[] = [
     seats: 5,
     transmission: "Manual",
     luggage: 3,
-    pricePerDay: 0,
-    pricePerDayWithDriver: 0,
+    pricePerDay: 70,
+    pricePerDayWithDriver: 90,
   },
   {
     slug: "toyota-land-cruiser-j70",
-    model: "Toyota Land Cruiser J70",
+    model: "Toyota Land Cruiser V8",
     summary:
       "A rugged Land Cruiser with a pop-up safari roof, bull bar and off-road tyres, built for game drives and rough park tracks. Seats four, with room for two bags.",
     bestFor: [
@@ -94,8 +94,8 @@ export const cars: Car[] = [
     seats: 4,
     transmission: "Manual",
     luggage: 2,
-    pricePerDay: 0,
-    pricePerDayWithDriver: 0,
+    pricePerDay: 70,
+    pricePerDayWithDriver: 90,
   },
   {
     slug: "toyota-hiace",
@@ -120,8 +120,8 @@ export const cars: Car[] = [
     seats: 7,
     transmission: "Automatic",
     luggage: 4,
-    pricePerDay: 0,
-    pricePerDayWithDriver: 0,
+    pricePerDay: 70,
+    pricePerDayWithDriver: 90,
   },
   {
     slug: "toyota-noah",
@@ -151,8 +151,8 @@ export const cars: Car[] = [
     seats: 7,
     transmission: "Automatic",
     luggage: 4,
-    pricePerDay: 0,
-    pricePerDayWithDriver: 0,
+    pricePerDay: 60,
+    pricePerDayWithDriver: 70,
   },
   {
     slug: "safari-land-cruiser",
@@ -177,8 +177,8 @@ export const cars: Car[] = [
     seats: 7,
     transmission: "Automatic",
     luggage: 4,
-    pricePerDay: 0,
-    pricePerDayWithDriver: 0,
+    pricePerDay: 200,
+    pricePerDayWithDriver: 250,
   },
 ];
 
