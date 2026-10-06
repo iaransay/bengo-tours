@@ -1,0 +1,87 @@
+---
+import WhatsAppButton from "./WhatsAppButton.astro";
+import {
+  findTour,
+  formatDays,
+  tourImage,
+  tourImageSrcset,
+  tourPath,
+  type ComboDeal,
+} from "../data/tours";
+import { withBase } from "../lib/withBase";
+
+interface Props {
+  combo: ComboDeal;
+  class?: string;
+}
+
+const { combo, class: className } = Astro.props;
+
+// Label each leg with the days it covers, e.g. "Days 1–2", "Days 3–5".
+let firstDay = 1;
+const legs = combo.tours.map(findTour).map((tour) => {
+  const lastDay = firstDay + tour.days - 1;
+  const days = tour.days === 1 ? `Day ${firstDay}` : `Days ${firstDay}–${lastDay}`;
+  firstDay = lastDay + 1;
+  return { tour, days };
+});
+const totalDays = firstDay - 1;
+---
+
+<div
+  class:list={[
+    "reveal grid gap-10 rounded-3xl bg-stone-950 p-8 text-white sm:p-10 lg:grid-cols-5 lg:items-center",
+    className,
+  ]}
+>
+  <div class="lg:col-span-2">
+    <span
+      class="inline-flex rounded-full bg-brand-600 px-3 py-1 text-xs font-semibold uppercase tracking-wider"
+    >
+      Combo deal
+    </span>
+    <h3 class="mt-4 font-display text-3xl font-semibold">{combo.title}</h3>
+    <p class="mt-3 leading-relaxed text-white/70">{combo.blurb}</p>
+    <p class="mt-6 text-3xl font-bold">
+      ${combo.price.toLocaleString("en-US")}
+      <span class="ml-1 text-base font-normal text-white/60">
+        / person · {formatDays(totalDays)}
+      </span>
+    </p>
+    <WhatsAppButton
+      message={`Hi Bengo Tours, I'd like to book the ${combo.title} combo deal. My dates are: `}
+      label="Book the combo"
+      class="mt-6"
+    />
+  </div>
+  <div class="grid gap-4 sm:grid-cols-2 lg:col-span-3">
+    {
+      legs.map(({ tour, days }) => (
+        <a
+          href={withBase(tourPath(tour))}
+          class="group overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10"
+        >
+          <div class="aspect-[16/10] overflow-hidden">
+            <img
+              src={tourImage(tour, 640)}
+              srcset={tourImageSrcset(tour, [320, 480, 640])}
+              sizes="(min-width: 1024px) 340px, (min-width: 640px) 50vw, 100vw"
+              alt={tour.imageAlt}
+              loading="lazy"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+          </div>
+          <div class="p-5">
+            <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">
+              {days}
+            </p>
+            <p class="mt-1 font-display text-lg font-semibold">{tour.title}</p>
+            <p class="mt-3 text-sm font-semibold text-brand-300 transition group-hover:text-brand-200">
+              See the itinerary →
+            </p>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</div>

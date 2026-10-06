@@ -249,3 +249,9 @@ export const permitRatesNote =
 export function permitPath(permit: Permit): string {
   return `/permits/${permit.slug}/`;
 }
+
+export function findPermit(slug: string): Permit {
+  const permit = permits.find((p) => p.slug === slug);
+  if (!permit) throw new Error(`Unknown permit slug: ${slug}`);
+  return permit;
+}

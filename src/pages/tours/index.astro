@@ -1,0 +1,78 @@
+---
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import TourCard from "../../components/TourCard.astro";
+import ComboDeal from "../../components/ComboDeal.astro";
+import Contact from "../../components/Contact.astro";
+import Footer from "../../components/Footer.astro";
+import { comboDeals, tours } from "../../data/tours";
+import { breadcrumbJsonLd, type Crumb } from "../../lib/breadcrumbs";
+import { withBase } from "../../lib/withBase";
+
+const crumbs: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Tours", path: "/tours/" },
+];
+---
+
+<Base
+  title="Uganda Safari Tours from Kampala | Bengo Tours"
+  description="Uganda tours from Kampala: gorilla trekking in Bwindi, Murchison Falls, Queen Elizabeth, Kibale chimpanzees and a Jinja day trip. Book on WhatsApp."
+  jsonLd={breadcrumbJsonLd(crumbs, Astro.site)}
+>
+  <Header />
+  <main>
+    <PageHeader
+      eyebrow="Tours"
+      title="Uganda safari tours from Kampala"
+      crumbs={crumbs}
+    >
+      Ready-made itineraries to Uganda's gorillas, chimpanzees, waterfalls and
+      savanna. Send us your dates and we'll take care of the rest.
+    </PageHeader>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {tours.map((tour) => <TourCard tour={tour} />)}
+        </div>
+        {comboDeals.map((combo) => <ComboDeal combo={combo} class="mt-8" />)}
+      </div>
+    </section>
+
+    <section class="bg-stone-50 py-20">
+      <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2">
+        <div class="reveal">
+          <h2 class="font-display text-3xl font-semibold text-stone-900">
+            Make it your own
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-stone-600">
+            Every tour can be stretched, shortened or combined with another.
+            Tell us your dates and what you'd like to see, and we'll shape the
+            itinerary around them.
+          </p>
+        </div>
+        <div class="reveal">
+          <h2 class="font-display text-3xl font-semibold text-stone-900">
+            Permits come first
+          </h2>
+          <p class="mt-4 text-lg leading-relaxed text-stone-600">
+            Gorilla permits sell out months ahead in the peak seasons, so on
+            any gorilla tour we secure the permit before anything else and plan
+            the drive around the date we get.
+          </p>
+          <a
+            href={withBase("/permits/")}
+            class="mt-6 inline-flex text-sm font-semibold text-brand-600 transition hover:text-brand-500"
+          >
+            How gorilla and chimpanzee permits work →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Contact />
+  </main>
+  <Footer />
+</Base>

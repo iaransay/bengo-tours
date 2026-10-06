@@ -1,20 +1,30 @@
 ---
-import type { Tour } from "../data/tours";
+import {
+  formatDays,
+  tourImage,
+  tourImageSrcset,
+  tourPath,
+  type Tour,
+} from "../data/tours";
+import { withBase } from "../lib/withBase";
 
 interface Props {
   tour: Tour;
 }
 
 const { tour } = Astro.props;
+const detailsHref = withBase(tourPath(tour));
 ---
 
 <article
-  class="reveal group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-stone-200 transition hover:shadow-xl"
+  class="reveal group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-stone-200 transition hover:shadow-xl"
 >
-  <div class="relative aspect-[4/3] overflow-hidden">
+  <a href={detailsHref} class="relative block aspect-[4/3] overflow-hidden">
     <img
-      src={tour.image}
-      alt={tour.name}
+      src={tourImage(tour, 800)}
+      srcset={tourImageSrcset(tour, [400, 640, 800, 1200])}
+      sizes="(min-width: 1280px) 400px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+      alt={tour.imageAlt}
       loading="lazy"
       class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
     />
@@ -26,23 +36,34 @@ const { tour } = Astro.props;
     <span
       class="absolute right-4 top-4 rounded-full bg-stone-950/70 px-3 py-1 text-xs font-semibold text-white backdrop-blur"
     >
-      {tour.days} days
+      {formatDays(tour.days)}
     </span>
-  </div>
-  <div class="p-6">
+  </a>
+  <div class="flex flex-1 flex-col p-6">
     <h3 class="font-display text-xl font-semibold text-stone-900">
-      {tour.name}
+      <a href={detailsHref} class="transition hover:text-brand-600">
+        {tour.title}
+      </a>
     </h3>
-    <p class="mt-2 text-sm leading-relaxed text-stone-600">{tour.blurb}</p>
+    <p class="mt-2 flex-1 text-sm leading-relaxed text-stone-600">
+      {tour.blurb}
+    </p>
     <div class="mt-5 flex items-center justify-between">
-      <p class="text-sm text-stone-500">
-        From
-        <span class="ml-1 text-lg font-bold text-stone-900">
-          ${tour.priceFrom.toLocaleString("en-US")}
-        </span>
-      </p>
+      {
+        tour.priceFrom ? (
+          <p class="text-sm text-stone-500">
+            From
+            <span class="ml-1 text-lg font-bold text-stone-900">
+              ${tour.priceFrom.toLocaleString("en-US")}
+            </span>
+            <span class="text-xs">/ person</span>
+          </p>
+        ) : (
+          <p class="text-sm font-semibold text-stone-900">Price on request</p>
+        )
+      }
       <a
-        href="#contact"
+        href={detailsHref}
         class="text-sm font-semibold text-brand-600 transition hover:text-brand-500"
       >
         View details →

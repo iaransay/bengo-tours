@@ -1,0 +1,226 @@
+---
+import type { GetStaticPaths } from "astro";
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import PageHeader from "../components/PageHeader.astro";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
+import TourMap from "../components/TourMap.astro";
+import ComboDeal from "../components/ComboDeal.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import { findPermit, permitPath } from "../data/permits";
+import {
+  combosWith,
+  formatDays,
+  tourImage,
+  tourImageSrcset,
+  tourPath,
+  tours,
+  tourShareImage,
+  type Tour,
+} from "../data/tours";
+import { breadcrumbJsonLd, type Crumb } from "../lib/breadcrumbs";
+import { withBase } from "../lib/withBase";
+
+export const getStaticPaths = (() =>
+  tours.map((tour) => ({ params: { slug: tour.slug }, props: { tour } }))) satisfies GetStaticPaths;
+
+interface Props {
+  tour: Tour;
+}
+
+const { tour } = Astro.props;
+const permit = tour.permit ? findPermit(tour.permit) : undefined;
+const combos = combosWith(tour);
+const otherTours = tours.filter((other) => other.slug !== tour.slug);
+
+const crumbs: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Tours", path: "/tours/" },
+  { name: tour.name, path: tourPath(tour) },
+];
+
+const facts = [
+  { label: "Duration", value: formatDays(tour.days) },
+  { label: "Starts from", value: tour.startsFrom },
+  {
+    label: "Price",
+    value: tour.priceFrom
+      ? `From $${tour.priceFrom.toLocaleString("en-US")} / person`
+      : "On request",
+  },
+];
+---
+
+<Base
+  title={`${tour.title} | Bengo Tours`}
+  description={tour.summary}
+  image={tourShareImage(tour)}
+  jsonLd={breadcrumbJsonLd(crumbs, Astro.site)}
+>
+  <Header />
+  <main>
+    <PageHeader
+      eyebrow={`Tours · ${formatDays(tour.days)}`}
+      title={tour.title}
+      crumbs={crumbs}
+    >
+      {tour.blurb}
+    </PageHeader>
+
+    <section class="bg-white py-20">
+      <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-3">
+        <div class="lg:col-span-2">
+          <img
+            src={tourImage(tour, 1280)}
+            srcset={tourImageSrcset(tour, [640, 960, 1280, 1600])}
+            sizes="(min-width: 1280px) 830px, (min-width: 1024px) 66vw, 100vw"
+            alt={tour.imageAlt}
+            loading="eager"
+            fetchpriority="high"
+            class="aspect-[16/10] w-full rounded-3xl object-cover"
+          />
+
+          <h2 class="mt-16 font-display text-3xl font-semibold text-stone-900">
+            Day by day
+          </h2>
+          <ol class="mt-8 space-y-10 border-l-2 border-brand-100 pl-8">
+            {
+              tour.itinerary.map((day, index) => (
+                <li class="reveal relative">
+                  <span class="absolute -left-[43px] top-0.5 h-5 w-5 rounded-full bg-brand-600 ring-4 ring-white" />
+                  <p class="text-sm font-semibold uppercase tracking-wide text-brand-600">
+                    Day {index + 1}
+                  </p>
+                  <h3 class="mt-1 font-display text-xl font-semibold text-stone-900">
+                    {day.title}
+                  </h3>
+                  <p class="mt-2 text-lg leading-relaxed text-stone-600">
+                    {day.text}
+                  </p>
+                </li>
+              ))
+            }
+          </ol>
+
+          {
+            tour.route && (
+              <>
+                <h2 class="mt-16 font-display text-3xl font-semibold text-stone-900">
+                  Route map
+                </h2>
+                <TourMap stops={tour.route} class="mt-8" />
+              </>
+            )
+          }
+        </div>
+
+        <aside class="lg:sticky lg:top-28 lg:self-start">
+          <div class="rounded-3xl bg-stone-50 p-8 ring-1 ring-stone-200">
+            <h2 class="font-display text-2xl font-semibold text-stone-900">
+              At a glance
+            </h2>
+            <dl class="mt-6 divide-y divide-stone-200 text-sm">
+              {
+                facts.map((fact) => (
+                  <div class="flex justify-between gap-4 py-3">
+                    <dt class="text-stone-500">{fact.label}</dt>
+                    <dd class="text-right font-semibold text-stone-900">
+                      {fact.value}
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+            {
+              tour.includes.length > 0 && (
+                <>
+                  <h3 class="mt-8 font-semibold text-stone-900">
+                    What's included
+                  </h3>
+                  <ul class="mt-4 space-y-3">
+                    {tour.includes.map((item) => (
+                      <li class="flex gap-3 text-sm text-stone-700">
+                        <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )
+            }
+            <WhatsAppButton
+              message={`Hi Bengo Tours, I'd like to book the ${tour.name} (${formatDays(tour.days)}). My dates are: `}
+              label="Book on WhatsApp"
+              class="mt-8 w-full"
+            />
+            <a
+              href="#contact"
+              class="mt-4 block text-center text-sm font-semibold text-stone-600 transition hover:text-brand-600"
+            >
+              Or use the contact form
+            </a>
+          </div>
+          {
+            permit && (
+              <p class="mt-6 px-2 text-sm leading-relaxed text-stone-500">
+                How the permit works, what to bring and when to book:{" "}
+                <a
+                  href={withBase(permitPath(permit))}
+                  class="font-semibold text-brand-600 hover:text-brand-500"
+                >
+                  {permit.pageTitle} →
+                </a>
+              </p>
+            )
+          }
+        </aside>
+      </div>
+    </section>
+
+    <section class="bg-stone-50 py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        {
+          combos.map((combo) => (
+            <ComboDeal combo={combo} class="mb-20" />
+          ))
+        }
+        <h2 class="reveal font-display text-3xl font-semibold text-stone-900">
+          Other tours
+        </h2>
+        <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            otherTours.map((other) => (
+              <a
+                href={withBase(tourPath(other))}
+                class="reveal group overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200 transition hover:shadow-xl"
+              >
+                <div class="aspect-[16/10] overflow-hidden">
+                  <img
+                    src={tourImage(other, 640)}
+                    srcset={tourImageSrcset(other, [320, 480, 640])}
+                    sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw"
+                    alt={other.imageAlt}
+                    loading="lazy"
+                    class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div class="p-5">
+                  <p class="font-display text-lg font-semibold text-stone-900">
+                    {other.title}
+                  </p>
+                  <p class="mt-1 text-sm text-stone-500">
+                    {formatDays(other.days)} · from {other.startsFrom}
+                  </p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <Contact />
+  </main>
+  <Footer />
+</Base>

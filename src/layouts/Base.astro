@@ -9,7 +9,8 @@ import defaultShareImage from "../assets/cars/safari-land-cruiser.jpg";
 interface Props {
   title: string;
   description: string;
-  image?: ImageMetadata;
+  /** A local image, or the URL of a remote one already sized 1200×630. */
+  image?: ImageMetadata | string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
@@ -24,14 +25,19 @@ const siteName = "Bengo Tours Uganda";
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 
 // 1200×630 JPEG is the size and format social previews (WhatsApp, Facebook, X) handle best.
-const shareImage = await getImage({
-  src: image,
-  width: 1200,
-  height: 630,
-  fit: "cover",
-  format: "jpeg",
-});
-const shareImageUrl = new URL(shareImage.src, Astro.site).href;
+let shareImageUrl: string;
+if (typeof image === "string") {
+  shareImageUrl = image;
+} else {
+  const shareImage = await getImage({
+    src: image,
+    width: 1200,
+    height: 630,
+    fit: "cover",
+    format: "jpeg",
+  });
+  shareImageUrl = new URL(shareImage.src, Astro.site).href;
+}
 const touchIcon = await getImage({ src: logo, width: 180, format: "png" });
 ---
 
