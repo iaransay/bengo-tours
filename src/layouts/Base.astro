@@ -4,7 +4,8 @@ import type { ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
 import { withBase } from "../lib/withBase";
 import logo from "../assets/logo.png";
-import defaultShareImage from "../assets/share-logo.jpg";
+// Already 1200×630, and served as-is: a lossless PNG keeps the logo's thin lines sharp.
+import defaultShareImage from "../assets/share-logo.png?url";
 
 interface Props {
   title: string;
@@ -17,7 +18,7 @@ interface Props {
 const {
   title,
   description,
-  image = defaultShareImage,
+  image = new URL(defaultShareImage, Astro.site).href,
   jsonLd,
 } = Astro.props;
 
