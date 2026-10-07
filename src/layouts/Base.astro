@@ -67,7 +67,7 @@ const touchIcon = await getImage({ src: logo, width: 180, format: "png" });
     <meta name="twitter:image" content={shareImageUrl} />
 
     <link rel="icon" href={withBase("/favicon.ico")} sizes="32x32" />
-    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="icon" type="image/png" href={withBase("/favicon.png")} sizes="192x192" />
     <link rel="apple-touch-icon" href={touchIcon.src} />
     {
       jsonLd && (
