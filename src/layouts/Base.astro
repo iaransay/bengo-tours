@@ -3,7 +3,6 @@ import "../styles/global.css";
 import type { ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
 import { withBase } from "../lib/withBase";
-import logo from "../assets/logo.png";
 // Already 1200×630, and served as-is: a lossless PNG keeps the logo's thin lines sharp.
 import defaultShareImage from "../assets/share-logo.png?url";
 
@@ -22,7 +21,7 @@ const {
   jsonLd,
 } = Astro.props;
 
-const siteName = "Bengo Tours Uganda";
+const siteName = "Abengo Tours Uganda";
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 
 // 1200×630 JPEG is the size and format social previews (WhatsApp, Facebook, X) handle best.
@@ -39,7 +38,6 @@ if (typeof image === "string") {
   });
   shareImageUrl = new URL(shareImage.src, Astro.site).href;
 }
-const touchIcon = await getImage({ src: logo, width: 180, format: "png" });
 ---
 
 <html lang="en">
@@ -67,9 +65,10 @@ const touchIcon = await getImage({ src: logo, width: 180, format: "png" });
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={shareImageUrl} />
 
-    <link rel="icon" href={withBase("/favicon.ico")} sizes="32x32" />
-    <link rel="icon" type="image/png" href={withBase("/favicon.png")} sizes="192x192" />
-    <link rel="apple-touch-icon" href={touchIcon.src} />
+    <!-- Bump ?v= whenever the icons change: Safari keeps an old icon until its URL changes. -->
+    <link rel="icon" href={withBase("/favicon.ico?v=2")} sizes="32x32" />
+    <link rel="icon" type="image/png" href={withBase("/favicon.png?v=2")} sizes="192x192" />
+    <link rel="apple-touch-icon" href={withBase("/apple-touch-icon.png?v=2")} />
     {
       jsonLd && (
         <script
