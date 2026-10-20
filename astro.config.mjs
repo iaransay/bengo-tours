@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://bengotoursuganda.com',
+  site: 'https://abengotoursuganda.com',
   trailingSlash: 'always',
   integrations: [sitemap()],
   vite: {

@@ -32,7 +32,7 @@ export const permits: Permit[] = [
     slug: "gorilla-trekking",
     name: "Gorilla Permit",
     pageTitle: "Gorilla trekking permits in Uganda",
-    metaTitle: "Gorilla Trekking Permits in Uganda | Bengo Tours",
+    metaTitle: "Gorilla Trekking Permits in Uganda | Abengo Tours",
     summary:
       "Book gorilla trekking and habituation permits for Bwindi and Mgahinga. We secure the UWA permit in your name and plan the drive to the trailhead.",
     park: "Bwindi & Mgahinga",
@@ -105,7 +105,7 @@ export const permits: Permit[] = [
     slug: "chimpanzee-tracking",
     name: "Chimpanzee Permit",
     pageTitle: "Chimpanzee tracking permits in Kibale",
-    metaTitle: "Chimpanzee Tracking Permits in Kibale, Uganda | Bengo Tours",
+    metaTitle: "Chimpanzee Tracking Permits in Kibale, Uganda | Abengo Tours",
     summary:
       "Book chimpanzee tracking and habituation permits for Kibale National Park, Uganda. We secure the UWA permit in your name and arrange the drive.",
     park: "Kibale National Park",
@@ -162,7 +162,7 @@ export const permits: Permit[] = [
     slug: "golden-monkey-tracking",
     name: "Golden Monkey Permit",
     pageTitle: "Golden monkey tracking permits in Mgahinga",
-    metaTitle: "Golden Monkey Permits in Mgahinga, Uganda | Bengo Tours",
+    metaTitle: "Golden Monkey Permits in Mgahinga, Uganda | Abengo Tours",
     summary:
       "Book golden monkey tracking permits for Mgahinga Gorilla National Park, an easy add-on to a gorilla trek in the Virungas, with the UWA permit in your name.",
     park: "Mgahinga Gorilla NP",
