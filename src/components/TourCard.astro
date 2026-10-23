@@ -57,6 +57,9 @@ const detailsHref = withBase(tourPath(tour));
               ${tour.priceFrom.toLocaleString("en-US")}
             </span>
             <span class="text-xs">/ person</span>
+            {tour.priceNote && (
+              <span class="block text-xs">{tour.priceNote}</span>
+            )}
           </p>
         ) : (
           <p class="text-sm font-semibold text-stone-900">Price on request</p>

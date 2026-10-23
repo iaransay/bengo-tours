@@ -25,6 +25,8 @@ export interface Tour {
   startsFrom: string;
   /** Per person. Leave out until the price is confirmed. */
   priceFrom?: number;
+  /** Small print under the price, e.g. "min. 2 people". */
+  priceNote?: string;
   blurb: string;
   itinerary: TourDay[];
   /** Stops in driving order, drawn as a route map on the tour page. */
@@ -49,7 +51,8 @@ export const tours: Tour[] = [
     tag: "Gorillas",
     days: 3,
     startsFrom: "Kampala or Entebbe",
-    priceFrom: 1350,
+    priceFrom: 450,
+    priceNote: "+ US$800 gorilla permit",
     blurb:
       "Track mountain gorillas in Bwindi Impenetrable Forest, with a stop at the Equator on the drive down and a Batwa community walk after your trek.",
     itinerary: [
@@ -72,10 +75,8 @@ export const tours: Tour[] = [
       { name: "Bwindi", lat: -1.017, lng: 29.683 },
     ],
     includes: [
-      "Gorilla trekking permit (US$800)",
-      "Return transport from Kampala or Entebbe",
-      "Lodge accommodation in Bwindi",
-      "A guide for the whole trip",
+      "Return transport from Kampala or Entebbe, with driver and fuel",
+      "Accommodation in Bwindi",
     ],
     permit: "gorilla-trekking",
   },
@@ -90,6 +91,7 @@ export const tours: Tour[] = [
     tag: "Safari",
     days: 2,
     startsFrom: "Kampala",
+    priceFrom: 280,
     blurb:
       "An evening game drive, then a boat trip up the Nile to the foot of Murchison Falls and a hike to the top, where the river squeezes through a 7-metre gap.",
     itinerary: [
@@ -107,34 +109,74 @@ export const tours: Tour[] = [
       { name: "Ziwa Rhino Sanctuary", lat: 1.4483, lng: 32.0778 },
       { name: "Murchison Falls", lat: 2.2783, lng: 31.6861 },
     ],
-    includes: [],
+    includes: [
+      "Return transport from Kampala, with driver and fuel",
+      "Accommodation near the park",
+      "Park entry fees",
+    ],
   },
   {
-    slug: "4-day-gorilla-queen-elizabeth-safari",
-    name: "Gorillas & Queen Elizabeth Safari",
-    title: "4 Day Uganda Gorilla Trekking & Queen Elizabeth Safari",
+    slug: "3-days-murchison-falls-safari-uganda",
+    name: "Murchison Falls Safari",
+    title: "3 Days Murchison Falls Safari Uganda",
     summary:
-      "Four days in western Uganda: a game drive and Kazinga Channel boat trip in Queen Elizabeth National Park, then gorilla trekking in Bwindi.",
+      "A 3-day Murchison Falls safari from Kampala, with morning and evening game drives and a boat trip up the Nile to the foot of the falls.",
+    image: "https://images.unsplash.com/photo-1588539689321-4b4f1391058f",
+    imageAlt: "Three Rothschild's giraffes in Murchison Falls National Park, Uganda",
+    tag: "Safari",
+    days: 3,
+    startsFrom: "Kampala",
+    priceFrom: 380,
+    blurb:
+      "A full day in Murchison Falls between the drives: morning and evening game drives, and a boat trip up the Nile to the foot of the falls, where the river squeezes through a 7-metre gap.",
+    itinerary: [
+      {
+        title: "Kampala to Murchison Falls",
+        text: "Drive north from Kampala to Murchison Falls National Park. Overnight near the park.",
+      },
+      {
+        title: "Game drives and the boat to the falls",
+        text: "Set out on an early-morning game drive across the park's savanna, when the animals are most active, looking for giraffes, elephants and buffalo. Later, take the boat trip up the Nile, past hippos and crocodiles on the banks, to the foot of Murchison Falls, where the whole river forces its way through the gorge. Head out again for an evening game drive as the light softens. Overnight near the park.",
+      },
+      {
+        title: "Return to Kampala",
+        text: "Drive back to Kampala.",
+      },
+    ],
+    route: [
+      { name: "Kampala", lat: 0.3177, lng: 32.5814 },
+      { name: "Murchison Falls", lat: 2.2783, lng: 31.6861 },
+    ],
+    includes: [
+      "Return transport from Kampala, with driver and fuel",
+      "Accommodation near the park",
+      "Park entry fees",
+      "Boat trip to the foot of the falls",
+    ],
+  },
+  {
+    slug: "3-days-queen-elizabeth-safari-uganda",
+    name: "Queen Elizabeth Safari",
+    title: "3 Days Queen Elizabeth Safari Uganda",
+    summary:
+      "A 3-day Queen Elizabeth National Park safari from Kampala, with morning and evening game drives across the savanna.",
     image: "https://images.unsplash.com/photo-1660988251043-7998126125c9",
     imageAlt:
       "Elephants drinking from the Kazinga Channel in Queen Elizabeth National Park",
-    tag: "Gorillas & safari",
-    days: 4,
+    tag: "Safari",
+    days: 3,
     startsFrom: "Kampala",
+    priceFrom: 300,
     blurb:
-      "A game drive and a Kazinga Channel boat trip among the hippos of Queen Elizabeth, then a gorilla trek in Bwindi Impenetrable Forest.",
+      "A full day in Queen Elizabeth between the drives, with morning and evening game drives across the savanna and the option of a boat trip among the hippos of the Kazinga Channel.",
     itinerary: [
       {
         title: "Kampala to Queen Elizabeth",
         text: "Drive west from Kampala to Queen Elizabeth National Park. Overnight near the park.",
       },
       {
-        title: "Game drive and Kazinga Channel boat trip",
-        text: "Morning game drive across the park's savanna, then a boat trip along the Kazinga Channel, where hippos crowd the water and elephants and buffalo come down to drink.",
-      },
-      {
-        title: "Bwindi and gorilla trekking",
-        text: "Head south to Bwindi Impenetrable Forest and trek with Uganda Wildlife Authority rangers to spend an hour with a habituated mountain gorilla family.",
+        title: "Game drives in Queen Elizabeth",
+        text: "A full day in the park, starting with an early-morning game drive across the savanna, when the animals are most active. A boat trip along the Kazinga Channel, where hippos crowd the water and elephants and buffalo come down to drink, is optional and not included in the price. Head out again for an evening game drive as the light softens. Overnight near the park.",
       },
       {
         title: "Return to Kampala",
@@ -144,22 +186,26 @@ export const tours: Tour[] = [
     route: [
       { name: "Kampala", lat: 0.3177, lng: 32.5814 },
       { name: "Queen Elizabeth", lat: -0.1903, lng: 29.8997 },
-      { name: "Bwindi", lat: -1.017, lng: 29.683 },
     ],
-    includes: [],
-    permit: "gorilla-trekking",
+    includes: [
+      "Return transport from Kampala, with driver and fuel",
+      "Accommodation near the park",
+      "Park entry fees",
+    ],
   },
   {
     slug: "3-day-kibale-chimpanzee-queen-elizabeth-safari",
     name: "Kibale Chimps & Queen Elizabeth Safari",
-    title: "3 Day Kibale Chimpanzee Tracking & Queen Elizabeth Safari",
+    title: "4 Day Kibale Chimpanzee Tracking & Queen Elizabeth Safari",
     summary:
-      "Track chimpanzees in Kibale Forest and go on safari in Queen Elizabeth National Park. A 3-day primate tour from Kampala for less than a gorilla trip.",
+      "Track chimpanzees in Kibale Forest and go on safari in Queen Elizabeth National Park. A 4-day primate tour from Kampala for less than a gorilla trip.",
     image: "https://images.unsplash.com/photo-1782664467973-7d3c93f8c47e",
     imageAlt: "Chimpanzee resting on a branch in Kibale National Park, Uganda",
     tag: "Chimps & safari",
-    days: 3,
+    days: 4,
     startsFrom: "Kampala",
+    priceFrom: 550,
+    priceNote: "+ US$250 chimp permit",
     blurb:
       "Chimpanzee tracking in Kibale, then a game drive in Queen Elizabeth. The chimp permit is US$250 against US$800 for gorillas, so it's the primate trip for a smaller budget.",
     itinerary: [
@@ -172,8 +218,12 @@ export const tours: Tour[] = [
         text: "Set out from Kanyanchu with Uganda Wildlife Authority rangers to track a chimpanzee community, then drive south to Queen Elizabeth National Park. Overnight near the park.",
       },
       {
-        title: "Game drive and return to Kampala",
-        text: "Early-morning game drive in Queen Elizabeth, then the drive back to Kampala.",
+        title: "Game drive in Queen Elizabeth",
+        text: "A full day in the park, starting with an early-morning game drive across the savanna, when the animals are most active. A boat trip on the Kazinga Channel is optional and not included in the price. Overnight near the park.",
+      },
+      {
+        title: "Return to Kampala",
+        text: "Drive back to Kampala.",
       },
     ],
     route: [
@@ -181,33 +231,42 @@ export const tours: Tour[] = [
       { name: "Kibale", lat: 0.437, lng: 30.3951 },
       { name: "Queen Elizabeth", lat: -0.1903, lng: 29.8997 },
     ],
-    includes: [],
+    includes: [
+      "Return transport from Kampala, with driver and fuel",
+      "Accommodation near the parks",
+      "Park entry fees",
+    ],
     permit: "chimpanzee-tracking",
   },
   {
     slug: "1-day-jinja-source-of-the-nile-rafting",
     name: "Jinja Nile Day Trip",
-    title: "1 Day Jinja Source of the Nile & White Water Rafting Trip",
+    title: "1 Day Jinja Source of the Nile Trip",
     summary:
-      "A day trip from Kampala to Jinja: see the Source of the Nile, where the river leaves Lake Victoria, and go white water rafting on its rapids.",
+      "A day trip from Kampala to Jinja: take a boat to the Source of the Nile, where the river leaves Lake Victoria, with optional white water rafting on its rapids.",
     image: "https://images.unsplash.com/photo-1708515929759-6d050c6c93cf",
     imageAlt: "Boat on the Nile at Jinja, Uganda",
     tag: "Day trip",
     days: 1,
     startsFrom: "Kampala",
+    priceFrom: 120,
+    priceNote: "min. 2 people",
     blurb:
-      "Already in Kampala? Spend a day at the Source of the Nile in Jinja and raft the river's white water, back in the city by evening.",
+      "Already in Kampala? Spend a day at the Source of the Nile in Jinja, with a boat trip on the river and the option to raft its white water, back in the city by evening.",
     itinerary: [
       {
         title: "Jinja and the Source of the Nile",
-        text: "Early pickup in Kampala for the drive east to Jinja, about 2–3 hours. Visit the Source of the Nile, where the river leaves Lake Victoria, then spend the day white water rafting on its rapids. Back in Kampala in the evening.",
+        text: "Early pickup in Kampala for the drive east to Jinja, about 2–3 hours. Take a boat trip to the Source of the Nile, where the river leaves Lake Victoria. White water rafting on the rapids downstream is optional and not included in the price. Back in Kampala in the evening.",
       },
     ],
     route: [
       { name: "Kampala", lat: 0.3177, lng: 32.5814 },
       { name: "Source of the Nile", lat: 0.417, lng: 33.1958 },
     ],
-    includes: [],
+    includes: [
+      "Return transport from Kampala, with driver and fuel",
+      "Boat trip on the Nile",
+    ],
   },
 ];
 
@@ -221,13 +280,13 @@ export const comboDeals: ComboDeal[] = [
     name: "Murchison Falls & Gorillas Combo",
     title: "5 Days Murchison Falls & Gorilla Trekking Safari",
     summary:
-      "Murchison Falls and gorilla trekking in one 5-day Uganda safari: a game drive and boat trip to the falls, then mountain gorillas in Bwindi. $1,680 per person.",
+      "Murchison Falls and gorilla trekking in one 5-day Uganda safari: a game drive and boat trip to the falls, then mountain gorillas in Bwindi. $1,630 per person.",
     image: "https://images.unsplash.com/photo-1704183683740-1400a49816b7",
     imageAlt: "Murchison Falls on the Nile in Uganda, with a rainbow in the spray",
     tag: "Combo deal",
     days: 5,
     startsFrom: "Kampala",
-    priceFrom: 1680,
+    priceFrom: 1630,
     blurb:
       "Do both in one trip: two days at Murchison Falls, then straight on to Bwindi for three days with the mountain gorillas.",
     itinerary: [
@@ -252,7 +311,11 @@ export const comboDeals: ComboDeal[] = [
         text: "Drive back to Kampala, or straight to Entebbe for your flight home.",
       },
     ],
-    includes: [],
+    includes: [
+      "Gorilla trekking permit (US$800)",
+      "Car, driver and fuel for all 5 days",
+      "Accommodation for all 4 nights",
+    ],
     permit: "gorilla-trekking",
     combines: ["2-days-murchison-falls-safari-uganda", "3-day-gorilla-trekking-safari"],
   },

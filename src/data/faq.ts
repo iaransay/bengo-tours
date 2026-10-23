@@ -50,7 +50,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: "Is there a cheaper alternative to a gorilla tour?",
         answer:
-          "Try the 3-day Kibale chimpanzee & Queen Elizabeth safari. A chimpanzee permit is US$250 against US$800 for gorillas, and the trip adds a game drive in Queen Elizabeth National Park.",
+          "Try the 4-day Kibale chimpanzee & Queen Elizabeth safari. A chimpanzee permit is US$250 against US$800 for gorillas, and the trip adds a game drive in Queen Elizabeth National Park.",
       },
     ],
   },

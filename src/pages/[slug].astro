@@ -56,6 +56,7 @@ const facts = [
     value: tour.priceFrom
       ? `From $${tour.priceFrom.toLocaleString("en-US")} / person`
       : "On request",
+    note: tour.priceNote,
   },
 ];
 ---
@@ -135,6 +136,11 @@ const facts = [
                     <dt class="text-stone-500">{fact.label}</dt>
                     <dd class="text-right font-semibold text-stone-900">
                       {fact.value}
+                      {fact.note && (
+                        <span class="block text-xs font-normal text-stone-500">
+                          {fact.note}
+                        </span>
+                      )}
                     </dd>
                   </div>
                 ))
