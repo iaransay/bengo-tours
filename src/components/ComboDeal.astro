@@ -1,13 +1,7 @@
 ---
 import WhatsAppButton from "./WhatsAppButton.astro";
-import {
-  findTour,
-  formatDays,
-  tourImage,
-  tourImageSrcset,
-  tourPath,
-  type ComboDeal,
-} from "../data/tours";
+import TourImage from "./TourImage.astro";
+import { findTour, formatDays, tourPath, type ComboDeal } from "../data/tours";
 import { withBase } from "../lib/withBase";
 
 interface Props {
@@ -70,11 +64,11 @@ const legs = combo.combines.map(findTour).map((tour) => {
       legs.map(({ tour, days }) => (
         <div class="group overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10">
           <div class="aspect-[16/10] overflow-hidden">
-            <img
-              src={tourImage(tour, 640)}
-              srcset={tourImageSrcset(tour, [320, 480, 640])}
+            <TourImage
+              tour={tour}
+              width={640}
+              widths={[320, 480, 640]}
               sizes="(min-width: 1024px) 340px, (min-width: 640px) 50vw, 100vw"
-              alt={tour.imageAlt}
               loading="lazy"
               class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
             />

@@ -1,11 +1,6 @@
 ---
-import {
-  formatDays,
-  tourImage,
-  tourImageSrcset,
-  tourPath,
-  type Tour,
-} from "../data/tours";
+import TourImage from "./TourImage.astro";
+import { formatDays, tourPath, type Tour } from "../data/tours";
 import { withBase } from "../lib/withBase";
 
 interface Props {
@@ -20,11 +15,11 @@ const detailsHref = withBase(tourPath(tour));
   class="reveal group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-stone-200 transition hover:shadow-xl"
 >
   <a href={detailsHref} class="relative block aspect-[4/3] overflow-hidden">
-    <img
-      src={tourImage(tour, 800)}
-      srcset={tourImageSrcset(tour, [400, 640, 800, 1200])}
+    <TourImage
+      tour={tour}
+      width={800}
+      widths={[400, 640, 800, 1200]}
       sizes="(min-width: 1280px) 400px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-      alt={tour.imageAlt}
       loading="lazy"
       class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
     />

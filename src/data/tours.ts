@@ -1,3 +1,8 @@
+import type { ImageMetadata } from "astro";
+import bwindiGorilla from "../assets/tours/bwindi-gorilla.jpg";
+import murchisonFalls from "../assets/tours/murchison-falls.jpg";
+import murchisonGiraffe from "../assets/tours/murchison-giraffe.jpg";
+
 export interface TourDay {
   title: string;
   text: string;
@@ -17,8 +22,8 @@ export interface Tour {
   title: string;
   /** Also used as the tour page's meta description. */
   summary: string;
-  /** Unsplash photo URL without query params — see tourImage(). */
-  image: string;
+  /** A local photo, or an Unsplash photo URL without query params — see TourImage.astro. */
+  image: ImageMetadata | string;
   imageAlt: string;
   tag: string;
   days: number;
@@ -46,8 +51,8 @@ export const tours: Tour[] = [
     title: "3 Day Uganda Gorilla Trekking Safari from Kampala",
     summary:
       "Experience the magic of mountain gorillas in Bwindi Impenetrable Forest on our popular 3-day budget and luxury tour from Kampala/Entebbe.",
-    image: "https://images.unsplash.com/photo-1711198583409-b3dba6a7e144",
-    imageAlt: "Mountain gorilla silverback in Bwindi Impenetrable Forest, Uganda",
+    image: bwindiGorilla,
+    imageAlt: "Mountain gorilla resting among the leaves in Bwindi Impenetrable Forest, Uganda",
     tag: "Gorillas",
     days: 3,
     startsFrom: "Kampala or Entebbe",
@@ -86,8 +91,8 @@ export const tours: Tour[] = [
     title: "2 Days Murchison Falls Safari Uganda",
     summary:
       "A 2-day Murchison Falls safari from Kampala, with an evening game drive, a boat trip to the foot of the falls and a hike to the top.",
-    image: "https://images.unsplash.com/photo-1704183683740-1400a49816b7",
-    imageAlt: "Murchison Falls on the Nile in Uganda, with a rainbow in the spray",
+    image: murchisonFalls,
+    imageAlt: "The Nile forcing its way through the narrow gorge at Murchison Falls, Uganda",
     tag: "Safari",
     days: 2,
     startsFrom: "Kampala",
@@ -121,8 +126,8 @@ export const tours: Tour[] = [
     title: "3 Days Murchison Falls Safari Uganda",
     summary:
       "A 3-day Murchison Falls safari from Kampala, with morning and evening game drives and a boat trip up the Nile to the foot of the falls.",
-    image: "https://images.unsplash.com/photo-1588539689321-4b4f1391058f",
-    imageAlt: "Three Rothschild's giraffes in Murchison Falls National Park, Uganda",
+    image: murchisonGiraffe,
+    imageAlt: "Rothschild's giraffe on the savanna in Murchison Falls National Park, Uganda",
     tag: "Safari",
     days: 3,
     startsFrom: "Kampala",
@@ -281,8 +286,8 @@ export const comboDeals: ComboDeal[] = [
     title: "5 Days Murchison Falls & Gorilla Trekking Safari",
     summary:
       "Murchison Falls and gorilla trekking in one 5-day Uganda safari: a game drive and boat trip to the falls, then mountain gorillas in Bwindi. $1,630 per person.",
-    image: "https://images.unsplash.com/photo-1704183683740-1400a49816b7",
-    imageAlt: "Murchison Falls on the Nile in Uganda, with a rainbow in the spray",
+    image: murchisonFalls,
+    imageAlt: "The Nile forcing its way through the narrow gorge at Murchison Falls, Uganda",
     tag: "Combo deal",
     days: 5,
     startsFrom: "Kampala",
@@ -340,16 +345,8 @@ export function formatDays(days: number): string {
   return `${days} ${days === 1 ? "day" : "days"}`;
 }
 
-// Unsplash resizes on request, so each page asks for the widths it needs.
-export function tourImage(tour: Tour, width: number): string {
-  return `${tour.image}?auto=format&fit=crop&q=75&w=${width}`;
-}
-
-export function tourImageSrcset(tour: Tour, widths: number[]): string {
-  return widths.map((width) => `${tourImage(tour, width)} ${width}w`).join(", ");
-}
-
-/** 1200×630 JPEG, for social previews. */
-export function tourShareImage(tour: Tour): string {
+/** For social previews: Base sizes local photos to 1200×630 itself. */
+export function tourShareImage(tour: Tour): ImageMetadata | string {
+  if (typeof tour.image !== "string") return tour.image;
   return `${tour.image}?fit=crop&q=80&w=1200&h=630&fm=jpg`;
 }

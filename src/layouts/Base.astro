@@ -34,6 +34,8 @@ if (typeof image === "string") {
     width: 1200,
     height: 630,
     fit: "cover",
+    // Keep the top of a portrait photo, where its subject's head usually is.
+    position: image.height > image.width ? "top" : undefined,
     format: "jpeg",
   });
   shareImageUrl = new URL(shareImage.src, Astro.site).href;

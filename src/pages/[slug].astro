@@ -6,6 +6,7 @@ import PageHeader from "../components/PageHeader.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
 import TourMap from "../components/TourMap.astro";
 import ComboDeal from "../components/ComboDeal.astro";
+import TourImage from "../components/TourImage.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import { findPermit, permitPath } from "../data/permits";
@@ -14,8 +15,6 @@ import {
   combosWith,
   findTour,
   formatDays,
-  tourImage,
-  tourImageSrcset,
   tourPath,
   tours,
   tourShareImage,
@@ -80,11 +79,11 @@ const facts = [
     <section class="bg-white py-20">
       <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-3">
         <div class="lg:col-span-2">
-          <img
-            src={tourImage(tour, 1280)}
-            srcset={tourImageSrcset(tour, [640, 960, 1280, 1600])}
+          <TourImage
+            tour={tour}
+            width={1280}
+            widths={[640, 960, 1280, 1600]}
             sizes="(min-width: 1280px) 830px, (min-width: 1024px) 66vw, 100vw"
-            alt={tour.imageAlt}
             loading="eager"
             fetchpriority="high"
             class="aspect-[16/10] w-full rounded-3xl object-cover"
@@ -210,11 +209,11 @@ const facts = [
                 class="reveal group overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200 transition hover:shadow-xl"
               >
                 <div class="aspect-[16/10] overflow-hidden">
-                  <img
-                    src={tourImage(other, 640)}
-                    srcset={tourImageSrcset(other, [320, 480, 640])}
+                  <TourImage
+                    tour={other}
+                    width={640}
+                    widths={[320, 480, 640]}
                     sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw"
-                    alt={other.imageAlt}
                     loading="lazy"
                     class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />

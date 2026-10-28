@@ -13,7 +13,7 @@ import Footer from "../components/Footer.astro";
 import { getImage } from "astro:assets";
 import { withBase } from "../lib/withBase";
 import logo from "../assets/logo.png";
-import safariLandCruiser from "../assets/cars/safari-land-cruiser.jpg";
+import safariLandCruiser from "../assets/cars/land-cruiser-70-safari/land-cruiser-70-safari-01.jpg";
 
 const siteUrl = new URL(withBase("/"), Astro.site).href;
 const logoImage = await getImage({ src: logo, width: 512, format: "png" });

@@ -1,0 +1,48 @@
+---
+import { getImage, Image } from "astro:assets";
+import type { HTMLAttributes } from "astro/types";
+import type { Tour } from "../data/tours";
+
+interface Props
+  extends Omit<HTMLAttributes<"img">, "src" | "srcset" | "alt" | "width" | "height"> {
+  tour: Tour;
+  /** Width of the fallback src. */
+  width: number;
+  /** Widths offered in the srcset. */
+  widths: number[];
+  sizes: string;
+}
+
+const { tour, width, widths, ...attrs } = Astro.props;
+
+// Unsplash resizes on request, so each page asks for the widths it needs.
+const unsplash = (w: number) => `${tour.image}?auto=format&fit=crop&q=75&w=${w}`;
+
+// Every frame is landscape, so cropping a portrait photo would cut off its subject.
+// Show it whole instead, over a stretched 24px copy that blurs into a backdrop.
+let portraitStyle: string | undefined;
+if (typeof tour.image !== "string" && tour.image.height > tour.image.width) {
+  const backdrop = await getImage({ src: tour.image, width: 24 });
+  portraitStyle = `object-fit: contain; background: url(${backdrop.src}) center / cover`;
+}
+---
+
+{
+  typeof tour.image === "string" ? (
+    <img
+      src={unsplash(width)}
+      srcset={widths.map((w) => `${unsplash(w)} ${w}w`).join(", ")}
+      alt={tour.imageAlt}
+      {...attrs}
+    />
+  ) : (
+    <Image
+      src={tour.image}
+      width={width}
+      widths={widths}
+      alt={tour.imageAlt}
+      style={portraitStyle}
+      {...attrs}
+    />
+  )
+}

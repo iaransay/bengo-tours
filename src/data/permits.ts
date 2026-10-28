@@ -96,9 +96,9 @@ export const permits: Permit[] = [
       },
     ],
     recommendedCars: [
-      "toyota-land-cruiser-prado",
+      "toyota-land-cruiser-prado-90",
       "safari-land-cruiser",
-      "toyota-land-cruiser-j70",
+      "toyota-land-cruiser-v8",
     ],
   },
   {
@@ -156,7 +156,7 @@ export const permits: Permit[] = [
         ],
       },
     ],
-    recommendedCars: ["toyota-hiace", "toyota-noah", "toyota-land-cruiser-prado"],
+    recommendedCars: ["toyota-hiace", "toyota-noah", "toyota-land-cruiser-prado-90"],
   },
   {
     slug: "golden-monkey-tracking",
@@ -211,7 +211,7 @@ export const permits: Permit[] = [
         ],
       },
     ],
-    recommendedCars: ["toyota-land-cruiser-prado", "safari-land-cruiser"],
+    recommendedCars: ["toyota-land-cruiser-prado-90", "safari-land-cruiser"],
   },
   // {
   //   name: "Park Entrance",
